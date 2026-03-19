@@ -13,4 +13,4 @@ ln -s /path/to/this-repo/<skill-name> ~/.claude/skills/<skill-name>
 
 | Skill | Description | Usage |
 |-------|-------------|-------|
-| [remind](./remind) | macOS 알림 타이머 | `/remind 5m 회의 시작` |
+| [remind](./remind) | macOS 알림 타이머 | `/remind 5m 회의 시작` 또는 `5분 뒤 회의 시작 알림 설정해줘` |

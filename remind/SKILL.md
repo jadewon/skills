@@ -1,7 +1,7 @@
 ---
 name: remind
 description: Set a macOS reminder notification after a specified time
-disable-model-invocation: true
+disable-model-invocation: false
 argument-hint: "<when> [message]  (e.g. 5m 회의 시작, 17:00 퇴근)"
 allowed-tools: Bash
 ---
