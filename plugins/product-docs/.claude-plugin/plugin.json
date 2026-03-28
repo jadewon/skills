@@ -1,0 +1,5 @@
+{
+  "name": "product-docs",
+  "description": "Create/update product docs in a central docs repo with auto PR",
+  "version": "1.0.0"
+}

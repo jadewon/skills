@@ -1,0 +1,27 @@
+{
+  "name": "jadewon-skills",
+  "owner": {
+    "name": "jadewon"
+  },
+  "metadata": {
+    "description": "Claude Code custom skills for personal productivity",
+    "version": "1.0.0",
+    "pluginRoot": "./plugins"
+  },
+  "plugins": [
+    {
+      "name": "remind",
+      "source": "remind",
+      "description": "macOS notification timer - set reminders with relative or absolute time",
+      "version": "1.0.0",
+      "keywords": ["reminder", "notification", "macos", "timer"]
+    },
+    {
+      "name": "product-docs",
+      "source": "product-docs",
+      "description": "Create/update product docs in a central docs repo with auto PR",
+      "version": "1.0.0",
+      "keywords": ["documentation", "product", "pr", "automation"]
+    }
+  ]
+}
