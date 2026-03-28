@@ -4,6 +4,12 @@ A Claude Code skill that creates/updates product documentation in a central docs
 
 > [한국어](./README.ko.md)
 
+## Why
+
+For AI agents to go beyond issue-by-issue task execution and genuinely improve a product on their own, they need well-organized product knowledge to reason about. Without it, agents lack the context to make meaningful decisions.
+
+This skill helps teams maintain that knowledge base by making it easy for everyone to contribute documentation in a consistent format — template-based, centrally managed, and delivered via automated PR.
+
 ## Prerequisites
 
 - A central product docs repo (markdown-based, with `products/` and `templates/product-templates/` directory structure)
