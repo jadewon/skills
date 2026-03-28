@@ -1,28 +1,30 @@
-# 개인편의성을 위해 만들어서 사용하는 스킬들
+# Custom Skills for Claude Code
 
-Claude Code custom skills.
+Personal productivity skills for Claude Code.
+
+> [한국어](./README.ko.md)
 
 ## Setup
 
-### Option 1: Plugin Marketplace (권장)
+### Option 1: Plugin Marketplace (recommended)
 
-레포 clone 없이 설치:
+No clone required:
 
 ```bash
-# marketplace 등록 (한번만)
+# Register marketplace (once)
 /plugin marketplace add jadewon/skills
 
-# 개별 플러그인 설치
+# Install individual plugins
 /plugin install remind@jadewon-skills
 /plugin install product-docs@jadewon-skills
 ```
 
-### Option 2: Symlink (기존 방식)
+### Option 2: Symlink
 
 ```bash
-# 이 레포를 클론한 뒤, 사용할 스킬을 심볼릭 링크로 연결
+# Clone this repo, then symlink the skill you want
 ln -s /path/to/this-repo/remind ~/.claude/skills/remind
-# 또는 plugin 구조에서
+# Or from the plugin structure
 ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 ```
 
@@ -30,18 +32,18 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 
 | Skill | Description | Usage |
 |-------|-------------|-------|
-| [remind](./remind) | macOS 알림 타이머 | `/remind 5m 회의 시작` 또는 `5분 뒤 회의 시작 알림 설정해줘` |
-| [product-docs](./product-docs) | 중앙 제품 문서 레포에 문서 생성/수정 + 자동 PR | `/product-docs feature 로그인 기능` 또는 `API 문서 추가해줘` |
+| [remind](./remind) | macOS notification timer | `/remind 5m meeting` or natural language |
+| [product-docs](./product-docs) | Create/update docs in a central product docs repo + auto PR | `/product-docs feature login` or natural language |
 
 ## Structure
 
-> 루트의 `remind/`, `product-docs/`는 기존 symlink 방식 호환용이고, `plugins/` 하위는 plugin marketplace 설치용입니다. 스킬 파일이 두 벌로 존재하는 이유는 두 설치 방식을 모두 지원하기 위함입니다.
+> Root-level `remind/` and `product-docs/` are for backward-compatible symlink installs. `plugins/` contains the same skills wrapped for plugin marketplace installs. Skill files exist in both locations to support both setup methods.
 
 ```
 skills/
 ├── .claude-plugin/
-│   └── marketplace.json        # Plugin marketplace 정의
-├── plugins/                    # Plugin 구조 (marketplace 설치용)
+│   └── marketplace.json        # Plugin marketplace definition
+├── plugins/                    # Plugin structure (for marketplace install)
 │   ├── remind/
 │   │   ├── .claude-plugin/
 │   │   │   └── plugin.json
@@ -50,6 +52,6 @@ skills/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       └── skills/product-docs/
-├── remind/                     # 기존 구조 (symlink 호환)
-└── product-docs/               # 기존 구조 (symlink 호환)
+├── remind/                     # Legacy structure (symlink compatible)
+└── product-docs/               # Legacy structure (symlink compatible)
 ```

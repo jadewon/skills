@@ -1,73 +1,69 @@
 # product-docs
 
-개발 레포에서 중앙 제품 문서 레포의 제품 문서를 생성/수정하고 자동으로 PR을 올리는 Claude Code 스킬입니다.
+A Claude Code skill that creates/updates product documentation in a central docs repo and automatically opens a PR.
 
-## 설치
+> [한국어](./README.ko.md)
 
-```bash
-ln -s /path/to/this-repo/product-docs ~/.claude/skills/product-docs
-```
+## Prerequisites
 
-## 사전 요구사항
+- A central product docs repo (markdown-based, with `products/` and `templates/product-templates/` directory structure)
+- [GitHub CLI](https://cli.github.com/) installed and authenticated (`gh auth login`)
+- Push access to the product docs repo
 
-- 중앙 제품 문서 레포 (마크다운 기반, `products/`, `templates/product-templates/` 디렉토리 구조를 갖춘 레포)
-- [GitHub CLI](https://cli.github.com/) 설치 및 인증 (`gh auth login`)
-- 제품 문서 레포에 대한 push 권한
+## Usage
 
-## 사용법
+### First run (initial setup)
 
-### 첫 실행 (초기 설정)
-
-스킬을 처음 실행하면 설정 파일(`.product-docs.config.json`)이 없으므로 대화형으로 설정을 생성합니다.
+On first run, a config file (`.product-docs.config.json`) doesn't exist yet, so the skill walks you through an interactive setup.
 
 ```
-/product-docs feature 로그인 기능
+/product-docs feature login
 ```
 
-질문 항목:
-1. 제품 문서 레포의 로컬 경로 (없으면 clone 제안)
-2. 현재 레포에 매핑할 제품명
-3. 문서 작성자 이름
+Questions asked:
+1. Local path to the product docs repo (offers to clone if missing)
+2. Product name to map to this repo
+3. Your author name
 
-설정 완료 후 `.product-docs.config.json`이 생성됩니다. **이 파일을 `.gitignore`에 추가하세요.**
+After setup, `.product-docs.config.json` is created. **Add this file to `.gitignore`.**
 
-### 문서 생성
-
-```
-/product-docs feature 로그인 기능          # 기능 문서
-/product-docs api 예약 API                # API 문서
-/product-docs arch 시스템 개요             # 아키텍처 문서
-/product-docs guide 시작하기               # 사용자 가이드
-/product-docs ops 배포 절차                # 운영 가이드
-/product-docs data ERD                    # 데이터 모델
-```
-
-자연어로도 사용 가능합니다:
+### Creating documents
 
 ```
-로그인 기능 문서 추가해줘
-예약 API 문서 업데이트해줘
+/product-docs feature login                # Feature doc
+/product-docs api booking API              # API doc
+/product-docs arch system overview         # Architecture doc
+/product-docs guide getting started        # User guide
+/product-docs ops deployment               # Ops guide
+/product-docs data ERD                     # Data model
 ```
 
-### 문서 현황 조회
+Also works with natural language:
+
+```
+Add a login feature doc
+Update the booking API doc
+```
+
+### Check document status
 
 ```
 /product-docs status
 ```
 
-### 기존 문서 수정
+### Update an existing document
 
 ```
-/product-docs update FEAT-001-로그인.md
+/product-docs update FEAT-001-login.md
 ```
 
-### 설정 확인/수정
+### View/edit config
 
 ```
 /product-docs config
 ```
 
-## 설정 파일 스키마
+## Config schema
 
 `.product-docs.config.json`:
 
@@ -80,34 +76,34 @@ ln -s /path/to/this-repo/product-docs ~/.claude/skills/product-docs
 }
 ```
 
-| 필드 | 필수 | 설명 |
-|------|------|------|
-| `productDocsPath` | Y | 제품 문서 레포의 로컬 절대 경로 |
-| `cloneUrl` | N | 레포가 없을 때 clone할 URL |
-| `products` | Y | 매핑할 제품 폴더명 배열 |
-| `author` | Y | 문서 작성자 이름 |
+| Field | Required | Description |
+|-------|----------|-------------|
+| `productDocsPath` | Y | Absolute local path to the product docs repo |
+| `cloneUrl` | N | Clone URL for when the repo doesn't exist locally |
+| `products` | Y | Array of product folder names to map |
+| `author` | Y | Author name for document headers |
 
-## 워크플로
+## Workflow
 
 ```
-개발 레포에서 /product-docs 실행
+Run /product-docs from your dev repo
   ↓
-설정 확인 (.product-docs.config.json)
+Check config (.product-docs.config.json)
   ↓
-현재 레포 컨텍스트 수집 (README, 코드 구조)
+Gather context from current repo (README, code structure)
   ↓
-템플릿 기반 문서 작성
+Write document based on templates
   ↓
-사용자 확인
+User review
   ↓
-docs/* 브랜치 생성 → 커밋 → PR
+Create docs/* branch → commit → PR
   ↓
-PR URL 보고
+Report PR URL
 ```
 
-## 문서 작성 원칙
+## Writing principles
 
-- 대상 독자는 **PO/기획자** (비개발자)
-- 비즈니스 가치와 사용자 관점에서 작성
-- 소스 코드, 프로그래밍 용어 포함 금지
-- 제품 문서 레포의 템플릿 형식과 네이밍 규칙 준수
+- Target audience: **PO / product managers** (non-developers)
+- Written from a business value and user perspective
+- No source code or programming jargon allowed
+- Follows the product docs repo's templates and naming conventions

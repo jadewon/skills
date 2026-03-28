@@ -1,31 +1,33 @@
 # remind
 
-macOS 알림 타이머 스킬.
+macOS notification timer skill.
+
+> [한국어](./README.ko.md)
 
 ## Usage
 
 ```
-/remind 5m 회의 시작
-/remind 17:00 퇴근 준비
-/remind 2h30m 빨래
+/remind 5m meeting starts
+/remind 17:00 time to leave
+/remind 2h30m laundry
 ```
 
-자연어로도 사용 가능:
+Also works with natural language:
 
 ```
-5분 뒤 회의 시작이라고 알림 설정 해줘
+Set a reminder for 5 minutes from now to start the meeting
 ```
 
 ### Time formats
 
 | Format | Example | Description |
 |--------|---------|-------------|
-| `Ns` | `30s` | N초 후 |
-| `Nm` | `5m` | N분 후 |
-| `Nh` | `2h` | N시간 후 |
-| `NhNm` | `1h30m` | 복합 |
-| `HH:MM` | `17:00` | 24시간제 절대 시각 |
-| `Ham/pm` | `5pm` | 12시간제 절대 시각 |
+| `Ns` | `30s` | N seconds from now |
+| `Nm` | `5m` | N minutes from now |
+| `Nh` | `2h` | N hours from now |
+| `NhNm` | `1h30m` | Compound |
+| `HH:MM` | `17:00` | Absolute (24h) |
+| `Ham/pm` | `5pm` | Absolute (12h) |
 
 ## Example
 
