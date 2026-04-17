@@ -16,7 +16,6 @@ No clone required:
 
 # Install individual plugins
 /plugin install remind@jadewon-skills
-/plugin install product-docs@jadewon-skills
 ```
 
 ### Option 2: Symlink
@@ -33,25 +32,19 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | Skill | Description | Usage |
 |-------|-------------|-------|
 | [remind](./remind) | macOS notification timer | `/remind 5m meeting` or natural language |
-| [product-docs](./product-docs) | Create/update docs in a central product docs repo + auto PR | `/product-docs feature login` or natural language |
 
 ## Structure
 
-> Root-level `remind/` and `product-docs/` are for backward-compatible symlink installs. `plugins/` contains the same skills wrapped for plugin marketplace installs. Skill files exist in both locations to support both setup methods.
+> Root-level `remind/` is for backward-compatible symlink installs. `plugins/` contains the same skill wrapped for plugin marketplace installs. Skill files exist in both locations to support both setup methods.
 
 ```
 skills/
 ├── .claude-plugin/
 │   └── marketplace.json        # Plugin marketplace definition
 ├── plugins/                    # Plugin structure (for marketplace install)
-│   ├── remind/
-│   │   ├── .claude-plugin/
-│   │   │   └── plugin.json
-│   │   └── skills/remind/
-│   └── product-docs/
+│   └── remind/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
-│       └── skills/product-docs/
-├── remind/                     # Legacy structure (symlink compatible)
-└── product-docs/               # Legacy structure (symlink compatible)
+│       └── skills/remind/
+└── remind/                     # Legacy structure (symlink compatible)
 ```

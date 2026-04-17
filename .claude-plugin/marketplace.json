@@ -14,13 +14,6 @@
       "description": "macOS notification timer - set reminders with relative or absolute time",
       "version": "1.0.0",
       "keywords": ["reminder", "notification", "macos", "timer"]
-    },
-    {
-      "name": "product-docs",
-      "source": "./plugins/product-docs",
-      "description": "Create/update product docs in a central docs repo with auto PR",
-      "version": "1.0.0",
-      "keywords": ["documentation", "product", "pr", "automation"]
     }
   ]
 }
