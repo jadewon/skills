@@ -32,6 +32,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | Skill | Description | Usage |
 |-------|-------------|-------|
 | [remind](./remind) | macOS notification timer | `/remind 5m meeting` or natural language |
+| [slack-scheduled-message](./slack-scheduled-message) | Schedule a future Slack message (default self-DM, configurable to private channel) with a `claude --resume <session>` command | `/slack-scheduled-message 5/11 09:32 ...` or natural language |
 
 ## Structure
 
@@ -42,9 +43,12 @@ skills/
 ├── .claude-plugin/
 │   └── marketplace.json        # Plugin marketplace definition
 ├── plugins/                    # Plugin structure (for marketplace install)
-│   └── remind/
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       └── skills/remind/
-└── remind/                     # Legacy structure (symlink compatible)
+│   ├── remind/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/remind/
+│   └── slack-scheduled-message/
+│       ├── .claude-plugin/plugin.json
+│       └── skills/slack-scheduled-message/
+├── remind/                     # Legacy structure (symlink compatible)
+└── slack-scheduled-message/
 ```

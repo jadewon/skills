@@ -32,6 +32,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | Skill | Description | Usage |
 |-------|-------------|-------|
 | [remind](./remind) | macOS 알림 타이머 | `/remind 5m 회의 시작` 또는 `5분 뒤 회의 시작 알림 설정해줘` |
+| [slack-scheduled-message](./slack-scheduled-message) | `claude --resume <세션>` 명령이 담긴 Slack 메시지 예약 (기본 본인 DM, private 채널로 설정 가능) | `/slack-scheduled-message 5/11 09:32 ...` 또는 자연어 |
 
 ## Structure
 
@@ -42,9 +43,12 @@ skills/
 ├── .claude-plugin/
 │   └── marketplace.json        # Plugin marketplace 정의
 ├── plugins/                    # Plugin 구조 (marketplace 설치용)
-│   └── remind/
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       └── skills/remind/
-└── remind/                     # 기존 구조 (symlink 호환)
+│   ├── remind/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/remind/
+│   └── slack-scheduled-message/
+│       ├── .claude-plugin/plugin.json
+│       └── skills/slack-scheduled-message/
+├── remind/                     # 기존 구조 (symlink 호환)
+└── slack-scheduled-message/
 ```
