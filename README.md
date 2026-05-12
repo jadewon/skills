@@ -33,7 +33,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 |-------|-------------|-------|
 | [remind](./remind) | macOS notification timer | `/remind 5m meeting` or natural language |
 | [slack-scheduled-message](./slack-scheduled-message) | Schedule a future Slack message (default self-DM, configurable to private channel) with a `claude --resume <session>` command | `/slack-scheduled-message 5/11 09:32 ...` or natural language |
-| [weather-daily](./weather-daily) | Daily weather brief for Korea — KMA forecast + air quality + UV, posted to Slack as actionable advice (outfit / umbrella / mask) | `/weather-daily` (typically wired to a cron at 08:00 KST on an always-on host) |
+| [weather-daily](./weather-daily) | Daily weather brief for Korea — KMA forecast + air quality + UV, posted to Slack as a one-line summary (temp / humidity / UV) plus actionable advice (outfit / umbrella / mask) | `/weather-daily` (typically wired to a cron at 08:00 KST on an always-on host) |
 
 ## Structure
 
