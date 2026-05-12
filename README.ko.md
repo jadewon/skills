@@ -57,3 +57,5 @@ skills/
 ├── slack-scheduled-message/
 └── weather-daily/
 ```
+
+주의: `plugins/` 하위는 symlink가 아니라 실제 복제본 — 스킬 수정 시 양쪽 다 고치고 `plugin.json` version도 올릴 것.

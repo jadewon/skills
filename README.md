@@ -57,3 +57,5 @@ skills/
 ├── slack-scheduled-message/
 └── weather-daily/
 ```
+
+Heads up: the `plugins/` copies are real duplicates, not symlinks — edit both and bump `plugin.json` version when changing a skill.
