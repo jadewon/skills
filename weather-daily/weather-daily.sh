@@ -96,7 +96,7 @@ def feel(t, v_ms, rh):
         return -0.2442 + 0.55399*tw + 0.45535*t - 0.0022*tw*tw + 0.00278*tw*t + 3
     return t
 
-tmps, feels, rain = [], [], []
+tmps, feels, rain, rhs = [], [], [], []
 wmax = 0.0
 for tt in sorted(by_time.keys()):
     d = by_time[tt]
@@ -107,6 +107,7 @@ for tt in sorted(by_time.keys()):
     rh = float(d.get('REH', 50))
     tmps.append(t)
     feels.append(feel(t, v, rh))
+    rhs.append(rh)
     wmax = max(wmax, v)
     pop = int(d.get('POP', 0))
     pty = int(d.get('PTY', 0))   # 0없음 1비 2비눈 3눈 4소나기
@@ -140,6 +141,8 @@ print(json.dumps({
     'feel_min': round(min(feels), 1) if feels else None,
     'feel_max': round(max(feels), 1) if feels else None,
     'diurnal': round(max(tmps) - min(tmps), 1) if tmps else 0,
+    'rh_min': int(min(rhs)) if rhs else None,
+    'rh_max': int(max(rhs)) if rhs else None,
     'wind_max': round(wmax, 1),
     'rain_hours': rain,
     'pm10_seoul': pm10,
