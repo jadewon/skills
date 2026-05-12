@@ -21,6 +21,13 @@
       "description": "Schedule a Slack message (configurable destination, default self-DM) with a `claude --resume` command for the current session",
       "version": "1.0.0",
       "keywords": ["slack", "scheduled", "reminder", "claude-resume", "self-dm"]
+    },
+    {
+      "name": "weather-daily",
+      "source": "./plugins/weather-daily",
+      "description": "Daily weather brief for Korea — KMA forecast + air quality + UV, posted to Slack as actionable advice (outfit / umbrella / mask)",
+      "version": "1.0.0",
+      "keywords": ["weather", "slack", "daily", "korea", "kma"]
     }
   ]
 }

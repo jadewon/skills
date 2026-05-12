@@ -1,0 +1,5 @@
+{
+  "name": "weather-daily",
+  "description": "Daily weather brief for Korea — KMA forecast + air quality + UV, posted to Slack as actionable advice (outfit / umbrella / mask)",
+  "version": "1.0.0"
+}

@@ -33,6 +33,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 |-------|-------------|-------|
 | [remind](./remind) | macOS 알림 타이머 | `/remind 5m 회의 시작` 또는 `5분 뒤 회의 시작 알림 설정해줘` |
 | [slack-scheduled-message](./slack-scheduled-message) | `claude --resume <세션>` 명령이 담긴 Slack 메시지 예약 (기본 본인 DM, private 채널로 설정 가능) | `/slack-scheduled-message 5/11 09:32 ...` 또는 자연어 |
+| [weather-daily](./weather-daily) | 한국 기상청/에어코리아 API 로 오늘 날씨를 조회해 친근한 비서 톤으로 Slack 채널에 발송 (옷차림·우산·미세먼지·자외선 등 행동 가능한 조언만) | `/weather-daily` (보통 always-on 서버 cron 08:00 KST 에 연결) |
 
 ## Structure
 
@@ -46,9 +47,13 @@ skills/
 │   ├── remind/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/remind/
-│   └── slack-scheduled-message/
+│   ├── slack-scheduled-message/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-scheduled-message/
+│   └── weather-daily/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/slack-scheduled-message/
+│       └── skills/weather-daily/
 ├── remind/                     # 기존 구조 (symlink 호환)
-└── slack-scheduled-message/
+├── slack-scheduled-message/
+└── weather-daily/
 ```
