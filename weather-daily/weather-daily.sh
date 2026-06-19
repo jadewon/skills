@@ -1,12 +1,12 @@
 #!/bin/bash
 # weather-daily.sh — helper for the weather-daily Claude Code skill.
-# Deterministic parts (API fetch, aggregation, Slack send) live here so the SKILL.md
+# Deterministic parts (API fetch, aggregation) live here so the SKILL.md
 # stays short and the model is not regenerating the same bash on every invocation.
 #
 # Subcommands:
 #   holiday          → prints "true" / "false". exits 0.
 #   fetch            → prints aggregated JSON to stdout.
-#   send <message>   → POST to Slack incoming webhook.
+# Sending is done by the caller (LLM) via its Slack connector — no webhook here.
 
 set -euo pipefail
 
@@ -25,7 +25,6 @@ source "$ENV_FILE"
 set +a
 
 : "${KMA_SERVICE_KEY:?KMA_SERVICE_KEY required in .env}"
-: "${SLACK_WEBHOOK_URL:?SLACK_WEBHOOK_URL required in .env}"
 NX="${NX:-60}"
 NY="${NY:-127}"
 AREA_NO="${AREA_NO:-1114000000}"
@@ -152,24 +151,12 @@ print(json.dumps({
 PYEOF
     ;;
 
-  send)
-    MSG="${1:?usage: $0 send <message>}"
-    RESP=$(curl -sS --max-time 10 -X POST "$SLACK_WEBHOOK_URL" \
-      -H "Content-Type: application/json" \
-      --data "$(jq -n --arg text "$MSG" '{text: $text}')")
-    if [[ "$RESP" != "ok" ]]; then
-      echo "ERROR: Slack rejected: $RESP" >&2
-      exit 3
-    fi
-    echo "ok"
-    ;;
-
   *)
     cat >&2 <<USAGE
 Usage:
   $0 holiday          → "true" / "false"
   $0 fetch            → aggregated JSON (stdout)
-  $0 send <message>   → POST to Slack webhook
+Sending: the caller posts the composed message via its Slack connector.
 USAGE
     exit 1
     ;;
