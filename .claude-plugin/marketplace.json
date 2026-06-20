@@ -28,6 +28,13 @@
       "description": "Daily weather brief for Korea — KMA forecast + air quality + UV, posted to Slack as actionable advice (outfit / umbrella / mask)",
       "version": "1.0.0",
       "keywords": ["weather", "slack", "daily", "korea", "kma"]
+    },
+    {
+      "name": "fearandgreed",
+      "source": "./plugins/fearandgreed",
+      "description": "Daily CNN Fear & Greed Index posted to Slack — score, rating, gauge, and prev close/week/month/year comparison",
+      "version": "1.0.0",
+      "keywords": ["fear-greed", "cnn", "slack", "daily", "sentiment"]
     }
   ]
 }

@@ -1,0 +1,5 @@
+{
+  "name": "fearandgreed",
+  "description": "Daily CNN Fear & Greed Index posted to Slack — score, rating, gauge, and prev close/week/month/year comparison",
+  "version": "1.0.0"
+}
