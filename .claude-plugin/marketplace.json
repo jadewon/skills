@@ -35,6 +35,20 @@
       "description": "Daily CNN Fear & Greed Index posted to Slack — score, rating, gauge, and prev close/week/month/year comparison",
       "version": "1.0.0",
       "keywords": ["fear-greed", "cnn", "slack", "daily", "sentiment"]
+    },
+    {
+      "name": "cat-fact-daily",
+      "source": "./plugins/cat-fact-daily",
+      "description": "Daily cat fact posted to Slack in the 'Momo' cat persona (Korean)",
+      "version": "1.0.0",
+      "keywords": ["cat", "fact", "slack", "daily", "fun"]
+    },
+    {
+      "name": "cat-photo-daily",
+      "source": "./plugins/cat-photo-daily",
+      "description": "Daily random cat photo with a 'Momo' cat-persona one-liner, posted to Slack",
+      "version": "1.0.0",
+      "keywords": ["cat", "photo", "slack", "daily", "fun"]
     }
   ]
 }

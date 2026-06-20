@@ -1,0 +1,5 @@
+{
+  "name": "cat-photo-daily",
+  "description": "Daily random cat photo with a 'Momo' cat-persona one-liner, posted to Slack",
+  "version": "1.0.0"
+}
