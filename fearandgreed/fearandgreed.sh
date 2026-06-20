@@ -24,6 +24,15 @@ set +a
 : "${SLACK_WEBHOOK_URL:?SLACK_WEBHOOK_URL required in .env}"
 
 DATE="${1:-$(date +%Y-%m-%d)}"
+
+# 공휴일 스킵 (hiworks) — 한국 공휴일이면 게시하지 않는다. .env 의 HOLIDAY_API_URL 로 override 가능.
+HOLIDAY_API_URL="${HOLIDAY_API_URL:-https://hiworks-production.up.railway.app/hiworks/holiday}"
+hol=$(curl -s --max-time 10 "${HOLIDAY_API_URL}?startDate=${DATE}&endDate=${DATE}" || echo "[]")
+if [[ "$hol" != "[]" ]]; then
+  echo "공휴일 스킵: $DATE"
+  exit 0
+fi
+
 API="https://production.dataviz.cnn.io/index/fearandgreed/graphdata/${DATE}"
 
 # --- fetch ---------------------------------------------------------------
