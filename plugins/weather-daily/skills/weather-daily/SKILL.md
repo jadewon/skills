@@ -1,14 +1,14 @@
 ---
 name: weather-daily
 description: 매일 아침 한국 기상청 / 에어코리아 API 로 오늘 날씨를 조회해 친근한 비서 톤으로 Slack 채널에 발송. 둘째 줄에 온도·습도·UV 한 줄 요약, 그 아래 옷차림·우산·미세먼지 등 행동 조언만.
-allowed-tools: Bash, mcp__claude_ai_Slack__slack_send_message
+allowed-tools: Bash
 ---
 
 # Weather Daily
 
 매일 아침 8시경, 사용자가 사는 지역의 오늘 날씨를 조사해 **한 줄 요약 + 행동 가능한 조언**을 Slack 채널에 보낸다.
 
-설정값(서비스키·좌표)은 `.env` 에서 로드한다. `.env.example` 참고. Slack 전송은 webhook 이 아니라 연결된 **Slack 커넥터**로 한다.
+설정값(서비스키·webhook·좌표)은 `.env` 에서 로드한다. `.env.example` 참고.
 
 ## 절대 규칙
 
@@ -102,7 +102,11 @@ stdout 으로 아래 JSON 출력. 그대로 받아 분석:
 
 ### 4. Slack 전송
 
-작성한 메시지를 연결된 **Slack 커넥터** (`slack_send_message`) 로 채널 `C0B3747NKND` (#실험실-lab) 에 전송한다. webhook 직발송은 쓰지 않는다.
+```bash
+"${CLAUDE_SKILL_DIR}/weather-daily.sh" send "작성한 메시지 본문"
+```
+
+응답이 `ok` 면 성공. 그 외면 에러 출력 후 종료.
 
 ## 예시 출력
 
@@ -129,16 +133,17 @@ stdout 으로 아래 JSON 출력. 그대로 받아 분석:
 ## 셋업
 
 1. `.env.example` 을 `.env` 로 복사
-2. `KMA_SERVICE_KEY` 채움 (Slack 전송은 커넥터가 담당 — webhook 불필요)
+2. `KMA_SERVICE_KEY`, `SLACK_WEBHOOK_URL` 채움
 3. `NX`, `NY`, `AREA_NO` 를 본인 지역으로 (기본값: 서울시청)
 4. (선택) `HOLIDAY_API_URL` 설정
 5. `chmod +x weather-daily.sh`
-6. Slack 커넥터가 연결된 환경(로컬 Claude Code / claude.ai routine)에서 실행 — 대상 채널 `C0B3747NKND`
 
 ## 스케줄
 
-발송이 LLM + Slack 커넥터 경로라 LLM 호출이 필요하다 (webhook 직발송 경로 제거됨). 머신이 꺼지면 miss 하는 로컬 cron 대신 **claude.ai routine (cloud)** 권장 — Slack 커넥터 연결 + Weekday 08:00 KST. 항상 켜진 서버에서 cron 으로 돌릴 경우:
+로컬 `/schedule` (Mac cron) 은 머신 꺼지면 miss. always-on 서버 cron 권장:
 
 ```cron
 0 8 * * 1-5 cd /path/to/skills/weather-daily && claude --print /weather-daily
 ```
+
+또는 결정적 메시지 생성으로 LLM 호출 없이 돌리려면 helper.sh 만 cron 에 박고 `fetch | format | send` 파이프 추가 구현.

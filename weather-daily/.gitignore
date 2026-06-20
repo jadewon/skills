@@ -1,6 +1,1 @@
 .env
-
-# Local-only webhook variant (the original pre-connector script).
-# Repo's weather-daily.sh sends via the Slack connector (cloud-routine ready);
-# this .local.sh keeps the self-contained SLACK_WEBHOOK_URL version for local use.
-weather-daily.local.sh
