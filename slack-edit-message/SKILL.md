@@ -38,11 +38,12 @@ Slack 에 이미 보낸 내 메시지를 수정하거나 삭제한다. `mcp__cla
 
 ## 셋업
 
-1. `.env.example` 을 `.env` 로 복사
-2. [api.slack.com/apps](https://api.slack.com/apps) → Create New App → From scratch
-3. OAuth & Permissions → **User Token Scopes** 에 `chat:write` 추가 (초대 안 된 public 채널까지 다루려면 `chat:write.public` 도)
-4. Install to Workspace → **User OAuth Token** (`xoxp-` 로 시작, `xoxb-` 아님) 복사해 `.env` 의 `SLACK_USER_TOKEN` 에 붙여넣기
-5. `chmod +x slack-edit-message.sh`
-6. 토큰 확인: `"${CLAUDE_SKILL_DIR}/slack-edit-message.sh" whoami` → `ok:true` + 본인 user id 가 나오면 정상
+1. 이미 다른 `slack-*` 스킬을 셋업했다면 **같은 Slack App / 같은 토큰** 을 그대로 쓴다. 공유 토큰 경로 `~/.config/slack-user-token/.env` 에 `SLACK_USER_TOKEN` 이 이미 있으면 이 스킬도 자동으로 그 파일을 먼저 찾는다 (별도 `.env` 불필요) — 없다면 아래대로 새로 만든다.
+2. `.env.example` 을 `.env` 로 복사
+3. [api.slack.com/apps](https://api.slack.com/apps) → Create New App → From scratch (기존 App 재사용 권장)
+4. OAuth & Permissions → **User Token Scopes** 에 `chat:write` 추가 (초대 안 된 public 채널까지 다루려면 `chat:write.public` 도)
+5. Install(또는 Reinstall) to Workspace → **User OAuth Token** (`xoxp-` 로 시작, `xoxb-` 아님) 복사해 `.env` 의 `SLACK_USER_TOKEN` 에 붙여넣기
+6. `chmod +x slack-edit-message.sh`
+7. 토큰 확인: `"${CLAUDE_SKILL_DIR}/slack-edit-message.sh" whoami` → `ok:true` + 본인 user id 가 나오면 정상
 
 `.env` 는 gitignore 된다 — 토큰은 로컬에만 두고 레포(PUBLIC)에 커밋하지 않는다.
