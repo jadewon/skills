@@ -1,0 +1,5 @@
+{
+  "name": "slack-reminders",
+  "description": "Create/list/complete/delete your own Slack reminders (reminders.*) via a user OAuth token",
+  "version": "1.0.0"
+}

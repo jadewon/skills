@@ -1,0 +1,5 @@
+{
+  "name": "slack-dnd",
+  "description": "Control your Slack Do Not Disturb: start/end snooze and check DND status via a user OAuth token",
+  "version": "1.0.0"
+}

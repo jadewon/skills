@@ -1,5 +1,5 @@
 {
   "name": "slack-scheduled-message",
-  "description": "Schedule a Slack DM to self with a `claude --resume` command for the current session",
-  "version": "1.0.0"
+  "description": "Schedule a Slack DM to self with a `claude --resume` command for the current session, plus list/cancel scheduled messages",
+  "version": "1.1.0"
 }

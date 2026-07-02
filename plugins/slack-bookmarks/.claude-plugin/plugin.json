@@ -1,0 +1,5 @@
+{
+  "name": "slack-bookmarks",
+  "description": "Manage a Slack channel's link bookmark bar (bookmarks.add/edit/remove/list) via a user OAuth token",
+  "version": "1.0.0"
+}

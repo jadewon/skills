@@ -1,0 +1,5 @@
+{
+  "name": "slack-status",
+  "description": "Set your own Slack custom status (users.profile.set) and presence (users.setPresence) via a user OAuth token",
+  "version": "1.0.0"
+}

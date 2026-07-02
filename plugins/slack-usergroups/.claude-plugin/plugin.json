@@ -1,0 +1,5 @@
+{
+  "name": "slack-usergroups",
+  "description": "Create/update Slack user groups and replace their membership via a user OAuth token (usergroups:write)",
+  "version": "1.0.0"
+}

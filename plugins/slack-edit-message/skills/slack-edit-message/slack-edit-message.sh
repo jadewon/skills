@@ -13,11 +13,11 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ENV_FILE="${SLACK_EDIT_MESSAGE_ENV:-}"
 if [[ -z "$ENV_FILE" ]]; then
-  for candidate in "$HOME/.config/slack-edit-message/.env" "$SCRIPT_DIR/.env"; do
+  for candidate in "$HOME/.config/slack-user-token/.env" "$HOME/.config/slack-edit-message/.env" "$SCRIPT_DIR/.env"; do
     [[ -f "$candidate" ]] && { ENV_FILE="$candidate"; break; }
   done
 fi
-[[ -f "$ENV_FILE" ]] || { echo "ERROR: .env not found. Tried SLACK_EDIT_MESSAGE_ENV, ~/.config/slack-edit-message/.env, ${SCRIPT_DIR}/.env" >&2; exit 1; }
+[[ -f "$ENV_FILE" ]] || { echo "ERROR: .env not found. Tried SLACK_EDIT_MESSAGE_ENV, ~/.config/slack-user-token/.env, ~/.config/slack-edit-message/.env, ${SCRIPT_DIR}/.env" >&2; exit 1; }
 
 set -a
 # shellcheck disable=SC1090

@@ -50,6 +50,11 @@ cd "<current path>" && claude --resume "<custom name ?? current session id>"
 
 Slack suppresses push, sound, and badge notifications on self-DMs regardless of sender — sending via the Claude Slack app does not bypass this. Only the unread badge inside the DM channel itself appears. If you need a reliable push at the scheduled time, schedule into a single-member private channel instead (e.g. `#jade-notes`), or include a self-mention `<@U…>` in the message (re-enables notifications in some workspaces, but is workspace-dependent).
 
-## Cancel / edit
+## Cancel / list
 
-Messages can't be edited via API once scheduled. Use Slack's *Drafts & sent* view.
+```bash
+slack-scheduled-message.sh list-scheduled <channel_id>
+slack-scheduled-message.sh cancel-scheduled <channel_id> <scheduled_message_id>
+```
+
+Needs `SLACK_USER_TOKEN` (see `.env.example`) — the schedule step itself uses the MCP tool and needs no token, but list/cancel call `chat.scheduledMessages.list` / `chat.deleteScheduledMessage` directly since those aren't in the MCP tool set. Messages still can't be *edited* via API — cancel and reschedule instead.

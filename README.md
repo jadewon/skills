@@ -38,6 +38,16 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [cat-fact-daily](./cat-fact-daily) | Daily cat fact in the "Momo" cat persona (Korean), posted to Slack | `/cat-fact-daily` (weekday morning cron) |
 | [cat-photo-daily](./cat-photo-daily) | Daily random cat photo with a "Momo" cat-persona one-liner, posted to Slack | `/cat-photo-daily` (weekday afternoon cron) |
 | [slack-edit-message](./slack-edit-message) | Edit or delete your own Slack messages (`chat.update`/`chat.delete`) — not exposed by the claude_ai Slack MCP tools, so this calls the Web API directly with a user OAuth token | `/slack-edit-message <message link> ...` or natural language |
+| [slack-reactions](./slack-reactions) | Remove a reaction or list reactions you left (`reactions.remove`/`reactions.list`) | `/slack-reactions remove ...` or natural language |
+| [slack-pins](./slack-pins) | Pin, unpin, or list pinned messages in a channel (`pins.add`/`remove`/`list`) | `/slack-pins ...` or natural language |
+| [slack-bookmarks](./slack-bookmarks) | Manage a channel's link bookmark bar (`bookmarks.add`/`edit`/`remove`/`list`) | `/slack-bookmarks ...` or natural language |
+| [slack-files](./slack-files) | Upload a local file to a channel or delete a file (external-upload flow, `files.getUploadURLExternal`+`completeUploadExternal`/`files.delete`) | `/slack-files upload ...` or natural language |
+| [slack-utils](./slack-utils) | Generate a message permalink (`chat.getPermalink`) and delete a canvas (`canvases.delete`) | `/slack-utils ...` or natural language |
+| [slack-status](./slack-status) | Set your own custom status and presence (`users.profile.set`/`users.setPresence`) | `/slack-status set-status ...` or natural language |
+| [slack-dnd](./slack-dnd) | Snooze/end-snooze/check your Do Not Disturb state (`dnd.setSnooze`/`endSnooze`/`info`) | `/slack-dnd ...` or natural language |
+| [slack-channel-admin](./slack-channel-admin) | Create/archive/rename channels, set topic/purpose, invite/kick members, mark-read (`conversations.*`) | `/slack-channel-admin ...` or natural language |
+| [slack-reminders](./slack-reminders) | Create/list/complete/delete your Slack reminders (`reminders.*`) — cross-device, unlike the local `remind` skill | `/slack-reminders ...` or natural language |
+| [slack-usergroups](./slack-usergroups) | Create/update Slack user groups and replace membership (`usergroups.*`) — admin-flavored, may need extra scope | `/slack-usergroups ...` or natural language |
 
 ## Structure
 
@@ -66,18 +76,58 @@ skills/
 │   ├── cat-photo-daily/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/cat-photo-daily/
-│   └── slack-edit-message/
+│   ├── slack-edit-message/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-edit-message/
+│   ├── slack-reactions/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-reactions/
+│   ├── slack-pins/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-pins/
+│   ├── slack-bookmarks/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-bookmarks/
+│   ├── slack-files/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-files/
+│   ├── slack-utils/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-utils/
+│   ├── slack-status/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-status/
+│   ├── slack-dnd/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-dnd/
+│   ├── slack-channel-admin/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-channel-admin/
+│   ├── slack-reminders/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-reminders/
+│   └── slack-usergroups/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/slack-edit-message/
+│       └── skills/slack-usergroups/
 ├── remind/                     # Legacy structure (symlink compatible)
 ├── slack-scheduled-message/
 ├── weather-daily/
 ├── fearandgreed/
 ├── cat-fact-daily/
 ├── cat-photo-daily/
-└── slack-edit-message/
+├── slack-edit-message/
+├── slack-reactions/
+├── slack-pins/
+├── slack-bookmarks/
+├── slack-files/
+├── slack-utils/
+├── slack-status/
+├── slack-dnd/
+├── slack-channel-admin/
+├── slack-reminders/
+└── slack-usergroups/
 ```
 
 Heads up: the `plugins/` copies are real duplicates, not symlinks — edit both and bump `plugin.json` version when changing a skill.
 
-Secrets: this repo is public, so Slack-posting skills load their webhook / bot / user token from a gitignored `.env` (see each skill's `.env.example`) — never commit real secrets.
+Secrets: this repo is public, so Slack-posting skills load their webhook / bot / user token from a gitignored `.env` (see each skill's `.env.example`) — never commit real secrets. The `slack-*` skills that need a Slack **user** OAuth token (`xoxp-...`, everything except the `*-daily` webhook posters) all check a shared `~/.config/slack-user-token/.env` first, so you only paste the token once and just keep adding OAuth scopes to the same Slack App as you use more of them.

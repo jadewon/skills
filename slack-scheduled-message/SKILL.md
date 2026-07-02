@@ -93,9 +93,25 @@ One short summary, no raw API JSON:
 ─────────────────
 ```
 
+### 6. 예약 조회/취소 (선택)
+
+`mcp__claude_ai_Slack__slack_schedule_message` 로 예약한 뒤 API 로 취소/조회하려면(Slack MCP 도구셋엔 없음) `SLACK_USER_TOKEN` 이 필요하다 — 셋업 참고.
+
+```bash
+"${CLAUDE_SKILL_DIR}/slack-scheduled-message.sh" list-scheduled <channel_id>
+"${CLAUDE_SKILL_DIR}/slack-scheduled-message.sh" cancel-scheduled <channel_id> <scheduled_message_id>
+```
+
+`list-scheduled` 응답의 `scheduled_messages[].id` 가 `cancel-scheduled` 의 `scheduled_message_id`. 응답 JSON 의 `ok` 필드로 성공 여부 확인.
+
 ## Notes
 
-- Once scheduled, messages can't be edited via API. Cancel/edit from Slack's *Drafts & sent* view.
+- 예약 취소는 위 `cancel-scheduled` 로 가능 (더 이상 Slack 앱에서 수동으로 할 필요 없음).
 - Resume target precedence: `user_custom_name ?? session_name ?? $CLAUDE_CODE_SESSION_ID`.
 - Session name is set via Claude Code's `/name` (read from `~/.claude/sessions/<pid>.json`).
 - To switch destinations, `rm ~/.config/slack-scheduled-message/channel_id`.
+
+## 셋업 (list-scheduled / cancel-scheduled 만 해당 — 예약 자체는 MCP 도구로 토큰 불필요)
+
+1. `.env.example` 을 `.env` 로 복사, `SLACK_USER_TOKEN` (xoxp-, `chat:write` 스코프) 채우기 — `slack-edit-message` 스킬과 동일 토큰 재사용 가능 (`~/.config/slack-user-token/.env` 에 공유 저장해두면 이 스킬도 자동으로 찾음)
+2. `chmod +x slack-scheduled-message.sh`

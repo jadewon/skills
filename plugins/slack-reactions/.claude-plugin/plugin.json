@@ -1,0 +1,5 @@
+{
+  "name": "slack-reactions",
+  "description": "Remove a reaction (reactions.remove) or list reactions you left (reactions.list) via a user OAuth token",
+  "version": "1.0.0"
+}

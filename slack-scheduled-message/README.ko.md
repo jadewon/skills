@@ -50,6 +50,11 @@ cd "<현재 경로>" && claude --resume "<custom name ?? 현재 세션 ID>"
 
 Slack 은 본인 DM 에 대해 발신자와 무관하게 push/소리/배지 알림을 억제한다 — Claude Slack 앱으로 보내도 우회되지 않으며, DM 채널 안의 unread 배지만 뜬다. 예약 시각에 확실한 push 가 필요하면, 자기만 들어 있는 private 채널 (예: `#jade-notes`) 로 예약하거나, 메시지에 본인 멘션 `<@U…>` 을 포함시킨다 (일부 워크스페이스에서는 알림이 살아나지만, 워크스페이스 설정에 따라 다름).
 
-## 취소 / 수정
+## 취소 / 조회
 
-API 로는 수정 불가. Slack 의 *Drafts & sent* 뷰에서 처리.
+```bash
+slack-scheduled-message.sh list-scheduled <channel_id>
+slack-scheduled-message.sh cancel-scheduled <channel_id> <scheduled_message_id>
+```
+
+`SLACK_USER_TOKEN` 필요 (`.env.example` 참고) — 예약 자체는 MCP 도구를 쓰므로 토큰이 필요 없지만, list/cancel 은 MCP 도구셋에 없는 `chat.scheduledMessages.list`/`chat.deleteScheduledMessage` 를 직접 호출한다. API 로 *수정*은 여전히 불가 — 취소 후 재예약.

@@ -1,0 +1,5 @@
+{
+  "name": "slack-channel-admin",
+  "description": "Create, archive, rename, set topic/purpose, invite/kick members, and mark-read Slack channels via a user OAuth token (conversations.*)",
+  "version": "1.0.0"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "slack-pins",
+  "description": "Pin (pins.add), unpin (pins.remove), or list (pins.list) Slack channel messages via a user OAuth token",
+  "version": "1.0.0"
+}

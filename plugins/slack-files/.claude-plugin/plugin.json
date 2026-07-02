@@ -1,0 +1,5 @@
+{
+  "name": "slack-files",
+  "description": "Upload a local file to a Slack channel or delete a file via a user OAuth token (external-upload flow)",
+  "version": "1.0.0"
+}

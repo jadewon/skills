@@ -18,8 +18,8 @@
     {
       "name": "slack-scheduled-message",
       "source": "./plugins/slack-scheduled-message",
-      "description": "Schedule a Slack message (configurable destination, default self-DM) with a `claude --resume` command for the current session",
-      "version": "1.0.0",
+      "description": "Schedule a Slack message (configurable destination, default self-DM) with a `claude --resume` command for the current session, plus list/cancel scheduled messages",
+      "version": "1.1.0",
       "keywords": ["slack", "scheduled", "reminder", "claude-resume", "self-dm"]
     },
     {
@@ -56,6 +56,76 @@
       "description": "Edit (chat.update) or delete (chat.delete) your own Slack messages via a user OAuth token",
       "version": "1.0.0",
       "keywords": ["slack", "edit", "delete", "chat-update", "chat-delete"]
+    },
+    {
+      "name": "slack-reactions",
+      "source": "./plugins/slack-reactions",
+      "description": "Remove a reaction (reactions.remove) or list reactions you left (reactions.list) via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "reactions", "emoji", "user-token"]
+    },
+    {
+      "name": "slack-pins",
+      "source": "./plugins/slack-pins",
+      "description": "Pin (pins.add), unpin (pins.remove), or list (pins.list) Slack channel messages via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "pins", "user-token"]
+    },
+    {
+      "name": "slack-bookmarks",
+      "source": "./plugins/slack-bookmarks",
+      "description": "Manage a Slack channel's link bookmark bar (bookmarks.add/edit/remove/list) via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "bookmarks", "user-token"]
+    },
+    {
+      "name": "slack-files",
+      "source": "./plugins/slack-files",
+      "description": "Upload a local file to a Slack channel or delete a file via a user OAuth token (external-upload flow)",
+      "version": "1.0.0",
+      "keywords": ["slack", "files", "upload", "user-token"]
+    },
+    {
+      "name": "slack-utils",
+      "source": "./plugins/slack-utils",
+      "description": "Slack single-endpoint utilities: generate a message permalink (chat.getPermalink) and delete a canvas (canvases.delete) via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "permalink", "canvas", "user-token"]
+    },
+    {
+      "name": "slack-status",
+      "source": "./plugins/slack-status",
+      "description": "Set your own Slack custom status (users.profile.set) and presence (users.setPresence) via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "status", "presence", "user-token"]
+    },
+    {
+      "name": "slack-dnd",
+      "source": "./plugins/slack-dnd",
+      "description": "Control your Slack Do Not Disturb: start/end snooze and check DND status via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "dnd", "snooze", "user-token"]
+    },
+    {
+      "name": "slack-channel-admin",
+      "source": "./plugins/slack-channel-admin",
+      "description": "Create, archive, rename, set topic/purpose, invite/kick members, and mark-read Slack channels via a user OAuth token (conversations.*)",
+      "version": "1.0.0",
+      "keywords": ["slack", "channel", "admin", "conversations", "user-token"]
+    },
+    {
+      "name": "slack-reminders",
+      "source": "./plugins/slack-reminders",
+      "description": "Create/list/complete/delete your own Slack reminders (reminders.*) via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "reminders", "user-token"]
+    },
+    {
+      "name": "slack-usergroups",
+      "source": "./plugins/slack-usergroups",
+      "description": "Create/update Slack user groups and replace their membership via a user OAuth token (usergroups:write)",
+      "version": "1.0.0",
+      "keywords": ["slack", "usergroups", "admin", "user-token"]
     }
   ]
 }

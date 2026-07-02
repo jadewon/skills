@@ -6,6 +6,8 @@
 # Subcommands:
 #   prepare <YYYY-MM-DD> <HH:MM> [custom-name]   → emit KEY=VALUE context lines
 #   save-channel <slack-id>                       → write cache file
+#   list-scheduled <channel_id>                    → chat.scheduledMessages.list (needs SLACK_USER_TOKEN)
+#   cancel-scheduled <channel_id> <scheduled_id>   → chat.deleteScheduledMessage (needs SLACK_USER_TOKEN)
 
 set -euo pipefail
 
@@ -17,8 +19,30 @@ usage() {
 Usage:
   slack-scheduled-message.sh prepare <YYYY-MM-DD> <HH:MM> [custom-name]
   slack-scheduled-message.sh save-channel <slack-id>
+  slack-scheduled-message.sh list-scheduled <channel_id>
+  slack-scheduled-message.sh cancel-scheduled <channel_id> <scheduled_message_id>
 USAGE
   exit 1
+}
+
+# list-scheduled / cancel-scheduled 는 slack_schedule_message MCP 도구엔 없는
+# chat.scheduledMessages.list / chat.deleteScheduledMessage 호출이라 user 토큰이 필요하다.
+# slack-edit-message 스킬과 동일한 순서로 .env 를 찾는다 (공유 토큰 우선).
+load_user_token() {
+  local script_dir env_file candidate
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  env_file="${SLACK_SCHEDULED_MESSAGE_ENV:-}"
+  if [[ -z "$env_file" ]]; then
+    for candidate in "$HOME/.config/slack-user-token/.env" "$HOME/.config/slack-scheduled-message/.env" "$script_dir/.env"; do
+      [[ -f "$candidate" ]] && { env_file="$candidate"; break; }
+    done
+  fi
+  [[ -f "$env_file" ]] || { echo "ERROR: .env not found. Tried SLACK_SCHEDULED_MESSAGE_ENV, ~/.config/slack-user-token/.env, ~/.config/slack-scheduled-message/.env, ${script_dir}/.env" >&2; exit 1; }
+  set -a
+  # shellcheck disable=SC1090
+  source "$env_file"
+  set +a
+  : "${SLACK_USER_TOKEN:?SLACK_USER_TOKEN (xoxp-...) required in .env}"
 }
 
 cmd="${1:-}"
@@ -83,6 +107,30 @@ EOF
     mkdir -p "$CACHE_DIR"
     printf '%s' "$1" > "$CACHE_FILE"
     echo "saved: $1 → $CACHE_FILE"
+    ;;
+
+  list-scheduled)
+    [[ $# -eq 1 ]] || usage
+    load_user_token
+    channel="$1"
+    resp=$(curl -fsS -G https://slack.com/api/chat.scheduledMessages.list \
+      -H "Authorization: Bearer ${SLACK_USER_TOKEN}" \
+      --data-urlencode "channel=${channel}")
+    echo "$resp"
+    [[ "$(echo "$resp" | jq -r '.ok')" == "true" ]] || exit 2
+    ;;
+
+  cancel-scheduled)
+    [[ $# -eq 2 ]] || usage
+    load_user_token
+    channel="$1"; scheduled_id="$2"
+    resp=$(curl -fsS -X POST https://slack.com/api/chat.deleteScheduledMessage \
+      -H "Authorization: Bearer ${SLACK_USER_TOKEN}" \
+      -H 'Content-Type: application/json; charset=utf-8' \
+      --data "$(jq -n --arg channel "$channel" --arg id "$scheduled_id" \
+        '{channel:$channel, scheduled_message_id:$id}')")
+    echo "$resp"
+    [[ "$(echo "$resp" | jq -r '.ok')" == "true" ]] || exit 2
     ;;
 
   *)
