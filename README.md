@@ -37,6 +37,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [fearandgreed](./fearandgreed) | Daily CNN Fear & Greed Index posted to Slack — score, rating, gauge, prev close/week/month/year | `/fearandgreed` (typically a weekday cron at 09:00 KST) |
 | [cat-fact-daily](./cat-fact-daily) | Daily cat fact in the "Momo" cat persona (Korean), posted to Slack | `/cat-fact-daily` (weekday morning cron) |
 | [cat-photo-daily](./cat-photo-daily) | Daily random cat photo with a "Momo" cat-persona one-liner, posted to Slack | `/cat-photo-daily` (weekday afternoon cron) |
+| [slack-edit-message](./slack-edit-message) | Edit or delete your own Slack messages (`chat.update`/`chat.delete`) — not exposed by the claude_ai Slack MCP tools, so this calls the Web API directly with a user OAuth token | `/slack-edit-message <message link> ...` or natural language |
 
 ## Structure
 
@@ -62,17 +63,21 @@ skills/
 │   ├── cat-fact-daily/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/cat-fact-daily/
-│   └── cat-photo-daily/
+│   ├── cat-photo-daily/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/cat-photo-daily/
+│   └── slack-edit-message/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/cat-photo-daily/
+│       └── skills/slack-edit-message/
 ├── remind/                     # Legacy structure (symlink compatible)
 ├── slack-scheduled-message/
 ├── weather-daily/
 ├── fearandgreed/
 ├── cat-fact-daily/
-└── cat-photo-daily/
+├── cat-photo-daily/
+└── slack-edit-message/
 ```
 
 Heads up: the `plugins/` copies are real duplicates, not symlinks — edit both and bump `plugin.json` version when changing a skill.
 
-Secrets: this repo is public, so Slack-posting skills load their webhook / bot token from a gitignored `.env` (see each skill's `.env.example`) — never commit real secrets.
+Secrets: this repo is public, so Slack-posting skills load their webhook / bot / user token from a gitignored `.env` (see each skill's `.env.example`) — never commit real secrets.

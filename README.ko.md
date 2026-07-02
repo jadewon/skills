@@ -37,6 +37,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [fearandgreed](./fearandgreed) | CNN Fear & Greed 지수를 매일 Slack 에 게시 — 점수·등급·게이지 + 전일/주/월/년 비교 | `/fearandgreed` (보통 평일 09:00 KST cron) |
 | [cat-fact-daily](./cat-fact-daily) | 매일 고양이 팩트를 모모 페르소나(한국어)로 Slack 에 게시 | `/cat-fact-daily` (평일 아침 cron) |
 | [cat-photo-daily](./cat-photo-daily) | 매일 랜덤 고양이 사진 + 모모 페르소나 한마디를 Slack 에 게시 | `/cat-photo-daily` (평일 오후 cron) |
+| [slack-edit-message](./slack-edit-message) | 내가 보낸 Slack 메시지 수정/삭제 (`chat.update`/`chat.delete`) — claude_ai Slack MCP 도구셋엔 없어 user 토큰으로 Web API 직접 호출 | `/slack-edit-message <메시지 링크> ...` 또는 자연어 |
 
 ## Structure
 
@@ -62,17 +63,21 @@ skills/
 │   ├── cat-fact-daily/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/cat-fact-daily/
-│   └── cat-photo-daily/
+│   ├── cat-photo-daily/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/cat-photo-daily/
+│   └── slack-edit-message/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/cat-photo-daily/
+│       └── skills/slack-edit-message/
 ├── remind/                     # 기존 구조 (symlink 호환)
 ├── slack-scheduled-message/
 ├── weather-daily/
 ├── fearandgreed/
 ├── cat-fact-daily/
-└── cat-photo-daily/
+├── cat-photo-daily/
+└── slack-edit-message/
 ```
 
 주의: `plugins/` 하위는 symlink가 아니라 실제 복제본 — 스킬 수정 시 양쪽 다 고치고 `plugin.json` version도 올릴 것.
 
-시크릿: 이 레포는 public 이라, Slack 에 게시하는 스킬은 webhook / 봇 토큰을 gitignore 된 `.env`(각 스킬의 `.env.example` 참고)에서 로드한다 — 실제 시크릿은 절대 커밋하지 않는다.
+시크릿: 이 레포는 public 이라, Slack 에 게시하는 스킬은 webhook / 봇 / user 토큰을 gitignore 된 `.env`(각 스킬의 `.env.example` 참고)에서 로드한다 — 실제 시크릿은 절대 커밋하지 않는다.

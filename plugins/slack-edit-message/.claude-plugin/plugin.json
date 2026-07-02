@@ -1,0 +1,5 @@
+{
+  "name": "slack-edit-message",
+  "description": "Edit (chat.update) or delete (chat.delete) your own Slack messages via a user OAuth token",
+  "version": "1.0.0"
+}

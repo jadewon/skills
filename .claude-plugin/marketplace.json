@@ -49,6 +49,13 @@
       "description": "Daily random cat photo with a 'Momo' cat-persona one-liner, posted to Slack",
       "version": "1.0.0",
       "keywords": ["cat", "photo", "slack", "daily", "fun"]
+    },
+    {
+      "name": "slack-edit-message",
+      "source": "./plugins/slack-edit-message",
+      "description": "Edit (chat.update) or delete (chat.delete) your own Slack messages via a user OAuth token",
+      "version": "1.0.0",
+      "keywords": ["slack", "edit", "delete", "chat-update", "chat-delete"]
     }
   ]
 }
