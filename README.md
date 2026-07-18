@@ -37,6 +37,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [fearandgreed](./fearandgreed) | Daily CNN Fear & Greed Index posted to Slack — score, rating, gauge, prev close/week/month/year | `/fearandgreed` (typically a weekday cron at 09:00 KST) |
 | [cat-fact-daily](./cat-fact-daily) | Daily cat fact in the "Momo" cat persona (Korean), posted to Slack | `/cat-fact-daily` (weekday morning cron) |
 | [cat-photo-daily](./cat-photo-daily) | Daily random cat photo with a "Momo" cat-persona one-liner, posted to Slack | `/cat-photo-daily` (weekday afternoon cron) |
+| [healthsync-briefing](./healthsync-briefing) | AI health briefing from HealthSync's daily snapshots in the private `jadewon/health` repo — recovery/sleep/activity interpretation + 1–3 actionable suggestions (Bevel-Intelligence-class, no stats dump) | `/healthsync-briefing` or "건강 브리핑", "요즘 몸 어때" |
 | [slack-edit-message](./slack-edit-message) | Edit or delete your own Slack messages (`chat.update`/`chat.delete`) — not exposed by the claude_ai Slack MCP tools, so this calls the Web API directly with a user OAuth token | `/slack-edit-message <message link> ...` or natural language |
 | [slack-reactions](./slack-reactions) | Remove a reaction or list reactions you left (`reactions.remove`/`reactions.list`) | `/slack-reactions remove ...` or natural language |
 | [slack-pins](./slack-pins) | Pin, unpin, or list pinned messages in a channel (`pins.add`/`remove`/`list`) | `/slack-pins ...` or natural language |
