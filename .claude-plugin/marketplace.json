@@ -13,119 +13,222 @@
       "source": "./plugins/remind",
       "description": "macOS notification timer - set reminders with relative or absolute time",
       "version": "1.0.0",
-      "keywords": ["reminder", "notification", "macos", "timer"]
+      "keywords": [
+        "reminder",
+        "notification",
+        "macos",
+        "timer"
+      ]
     },
     {
       "name": "slack-scheduled-message",
       "source": "./plugins/slack-scheduled-message",
       "description": "Schedule a Slack message (configurable destination, default self-DM) with a `claude --resume` command for the current session, plus list/cancel scheduled messages",
       "version": "1.1.0",
-      "keywords": ["slack", "scheduled", "reminder", "claude-resume", "self-dm"]
+      "keywords": [
+        "slack",
+        "scheduled",
+        "reminder",
+        "claude-resume",
+        "self-dm"
+      ]
     },
     {
       "name": "weather-daily",
       "source": "./plugins/weather-daily",
       "description": "Daily weather brief for Korea — KMA forecast + air quality + UV, posted to Slack as actionable advice (outfit / umbrella / mask)",
       "version": "1.0.0",
-      "keywords": ["weather", "slack", "daily", "korea", "kma"]
+      "keywords": [
+        "weather",
+        "slack",
+        "daily",
+        "korea",
+        "kma"
+      ]
     },
     {
       "name": "fearandgreed",
       "source": "./plugins/fearandgreed",
       "description": "Daily CNN Fear & Greed Index posted to Slack — score, rating, gauge, and prev close/week/month/year comparison",
       "version": "1.1.0",
-      "keywords": ["fear-greed", "cnn", "slack", "daily", "sentiment"]
+      "keywords": [
+        "fear-greed",
+        "cnn",
+        "slack",
+        "daily",
+        "sentiment"
+      ]
     },
     {
       "name": "cat-fact-daily",
       "source": "./plugins/cat-fact-daily",
       "description": "Daily cat fact posted to Slack in the 'Momo' cat persona (Korean)",
       "version": "1.0.0",
-      "keywords": ["cat", "fact", "slack", "daily", "fun"]
+      "keywords": [
+        "cat",
+        "fact",
+        "slack",
+        "daily",
+        "fun"
+      ]
     },
     {
       "name": "cat-photo-daily",
       "source": "./plugins/cat-photo-daily",
       "description": "Daily random cat photo with a 'Momo' cat-persona one-liner, posted to Slack",
       "version": "1.0.0",
-      "keywords": ["cat", "photo", "slack", "daily", "fun"]
+      "keywords": [
+        "cat",
+        "photo",
+        "slack",
+        "daily",
+        "fun"
+      ]
     },
     {
       "name": "slack-edit-message",
       "source": "./plugins/slack-edit-message",
       "description": "Edit (chat.update) or delete (chat.delete) your own Slack messages via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "edit", "delete", "chat-update", "chat-delete"]
+      "keywords": [
+        "slack",
+        "edit",
+        "delete",
+        "chat-update",
+        "chat-delete"
+      ]
     },
     {
       "name": "slack-reactions",
       "source": "./plugins/slack-reactions",
       "description": "Remove a reaction (reactions.remove) or list reactions you left (reactions.list) via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "reactions", "emoji", "user-token"]
+      "keywords": [
+        "slack",
+        "reactions",
+        "emoji",
+        "user-token"
+      ]
     },
     {
       "name": "slack-pins",
       "source": "./plugins/slack-pins",
       "description": "Pin (pins.add), unpin (pins.remove), or list (pins.list) Slack channel messages via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "pins", "user-token"]
+      "keywords": [
+        "slack",
+        "pins",
+        "user-token"
+      ]
     },
     {
       "name": "slack-bookmarks",
       "source": "./plugins/slack-bookmarks",
       "description": "Manage a Slack channel's link bookmark bar (bookmarks.add/edit/remove/list) via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "bookmarks", "user-token"]
+      "keywords": [
+        "slack",
+        "bookmarks",
+        "user-token"
+      ]
     },
     {
       "name": "slack-files",
       "source": "./plugins/slack-files",
       "description": "Upload a local file to a Slack channel or delete a file via a user OAuth token (external-upload flow)",
       "version": "1.0.0",
-      "keywords": ["slack", "files", "upload", "user-token"]
+      "keywords": [
+        "slack",
+        "files",
+        "upload",
+        "user-token"
+      ]
     },
     {
       "name": "slack-utils",
       "source": "./plugins/slack-utils",
       "description": "Slack single-endpoint utilities: generate a message permalink (chat.getPermalink) and delete a canvas (canvases.delete) via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "permalink", "canvas", "user-token"]
+      "keywords": [
+        "slack",
+        "permalink",
+        "canvas",
+        "user-token"
+      ]
     },
     {
       "name": "slack-status",
       "source": "./plugins/slack-status",
       "description": "Set your own Slack custom status (users.profile.set) and presence (users.setPresence) via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "status", "presence", "user-token"]
+      "keywords": [
+        "slack",
+        "status",
+        "presence",
+        "user-token"
+      ]
     },
     {
       "name": "slack-dnd",
       "source": "./plugins/slack-dnd",
       "description": "Control your Slack Do Not Disturb: start/end snooze and check DND status via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "dnd", "snooze", "user-token"]
+      "keywords": [
+        "slack",
+        "dnd",
+        "snooze",
+        "user-token"
+      ]
     },
     {
       "name": "slack-channel-admin",
       "source": "./plugins/slack-channel-admin",
       "description": "Create, archive, rename, set topic/purpose, invite/kick members, and mark-read Slack channels via a user OAuth token (conversations.*)",
       "version": "1.0.0",
-      "keywords": ["slack", "channel", "admin", "conversations", "user-token"]
+      "keywords": [
+        "slack",
+        "channel",
+        "admin",
+        "conversations",
+        "user-token"
+      ]
     },
     {
       "name": "slack-reminders",
       "source": "./plugins/slack-reminders",
       "description": "Create/list/complete/delete your own Slack reminders (reminders.*) via a user OAuth token",
       "version": "1.0.0",
-      "keywords": ["slack", "reminders", "user-token"]
+      "keywords": [
+        "slack",
+        "reminders",
+        "user-token"
+      ]
     },
     {
       "name": "slack-usergroups",
       "source": "./plugins/slack-usergroups",
       "description": "Create/update Slack user groups and replace their membership via a user OAuth token (usergroups:write)",
       "version": "1.0.0",
-      "keywords": ["slack", "usergroups", "admin", "user-token"]
+      "keywords": [
+        "slack",
+        "usergroups",
+        "admin",
+        "user-token"
+      ]
+    },
+    {
+      "name": "healthsync-briefing",
+      "source": "./plugins/healthsync-briefing",
+      "description": "AI health briefing from HealthSync's daily Apple Health snapshots in a private GitHub repo — recovery/sleep/activity interpretation plus 1-3 actionable suggestions",
+      "version": "1.0.0",
+      "keywords": [
+        "health",
+        "apple-health",
+        "healthkit",
+        "briefing",
+        "hrv",
+        "sleep"
+      ]
     }
   ]
 }

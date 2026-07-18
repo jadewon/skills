@@ -49,6 +49,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [slack-channel-admin](./slack-channel-admin) | 채널 생성/보관/이름변경/토픽·목적 설정/초대·추방/읽음처리 (`conversations.*`) | `/slack-channel-admin ...` 또는 자연어 |
 | [slack-reminders](./slack-reminders) | Slack 자체 리마인더 생성/조회/완료/삭제 (`reminders.*`) — 로컬 `remind` 스킬과 달리 기기 간 동기화됨 | `/slack-reminders ...` 또는 자연어 |
 | [slack-usergroups](./slack-usergroups) | Slack 유저그룹 생성/수정 및 멤버십 교체 (`usergroups.*`) — admin 성격, 추가 스코프 필요할 수 있음 | `/slack-usergroups ...` 또는 자연어 |
+| [add-service-shortcut](./add-service-shortcut) | 현재 프로젝트를 로컬 바로가기 대시보드(`~/Workspaces/tport/shortcuts.html`)에 upsert — 작업 디렉토리에서 이름·설명·경로 추론, 이름 기준 upsert, 메모만 붙이는 부분 업데이트 지원 | `/add-service-shortcut [이름]` 또는 자연어 |
 
 ## Structure
 
@@ -107,9 +108,12 @@ skills/
 │   ├── slack-reminders/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/slack-reminders/
-│   └── slack-usergroups/
+│   ├── slack-usergroups/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-usergroups/
+│   └── healthsync-briefing/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/slack-usergroups/
+│       └── skills/healthsync-briefing/
 ├── remind/                     # 기존 구조 (symlink 호환)
 ├── slack-scheduled-message/
 ├── weather-daily/
@@ -126,7 +130,9 @@ skills/
 ├── slack-dnd/
 ├── slack-channel-admin/
 ├── slack-reminders/
-└── slack-usergroups/
+├── slack-usergroups/
+├── healthsync-briefing/
+└── add-service-shortcut/       # top-level 전용 — 개인용이라 marketplace 미배포
 ```
 
 주의: `plugins/` 하위는 symlink가 아니라 실제 복제본 — 스킬 수정 시 양쪽 다 고치고 `plugin.json` version도 올릴 것.

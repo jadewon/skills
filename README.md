@@ -49,6 +49,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [slack-channel-admin](./slack-channel-admin) | Create/archive/rename channels, set topic/purpose, invite/kick members, mark-read (`conversations.*`) | `/slack-channel-admin ...` or natural language |
 | [slack-reminders](./slack-reminders) | Create/list/complete/delete your Slack reminders (`reminders.*`) — cross-device, unlike the local `remind` skill | `/slack-reminders ...` or natural language |
 | [slack-usergroups](./slack-usergroups) | Create/update Slack user groups and replace membership (`usergroups.*`) — admin-flavored, may need extra scope | `/slack-usergroups ...` or natural language |
+| [add-service-shortcut](./add-service-shortcut) | Upsert the current project into the local shortcuts dashboard (`~/Workspaces/tport/shortcuts.html`) — infers name/desc/path from the working dir, upserts by name, supports note-only partial updates | `/add-service-shortcut [name]` or natural language |
 
 ## Structure
 
@@ -107,9 +108,12 @@ skills/
 │   ├── slack-reminders/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/slack-reminders/
-│   └── slack-usergroups/
+│   ├── slack-usergroups/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/slack-usergroups/
+│   └── healthsync-briefing/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/slack-usergroups/
+│       └── skills/healthsync-briefing/
 ├── remind/                     # Legacy structure (symlink compatible)
 ├── slack-scheduled-message/
 ├── weather-daily/
@@ -126,7 +130,9 @@ skills/
 ├── slack-dnd/
 ├── slack-channel-admin/
 ├── slack-reminders/
-└── slack-usergroups/
+├── slack-usergroups/
+├── healthsync-briefing/
+└── add-service-shortcut/       # top-level only — personal, not published to the marketplace
 ```
 
 Heads up: the `plugins/` copies are real duplicates, not symlinks — edit both and bump `plugin.json` version when changing a skill.
