@@ -43,7 +43,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [slack-pins](./slack-pins) | Pin, unpin, or list pinned messages in a channel (`pins.add`/`remove`/`list`) | `/slack-pins ...` or natural language |
 | [slack-bookmarks](./slack-bookmarks) | Manage a channel's link bookmark bar (`bookmarks.add`/`edit`/`remove`/`list`) | `/slack-bookmarks ...` or natural language |
 | [slack-files](./slack-files) | Upload a local file to a channel or delete a file (external-upload flow, `files.getUploadURLExternal`+`completeUploadExternal`/`files.delete`) | `/slack-files upload ...` or natural language |
-| [slack-utils](./slack-utils) | Generate a message permalink (`chat.getPermalink`) and delete a canvas (`canvases.delete`) | `/slack-utils ...` or natural language |
+| [slack-utils](./slack-utils) | Generate a message permalink (`chat.getPermalink`), delete a canvas (`canvases.delete`), and read a message's raw JSON incl. attachments/blocks (`conversations.history`) | `/slack-utils ...` or natural language |
 | [slack-status](./slack-status) | Set your own custom status and presence (`users.profile.set`/`users.setPresence`) | `/slack-status set-status ...` or natural language |
 | [slack-dnd](./slack-dnd) | Snooze/end-snooze/check your Do Not Disturb state (`dnd.setSnooze`/`endSnooze`/`info`) | `/slack-dnd ...` or natural language |
 | [slack-channel-admin](./slack-channel-admin) | Create/archive/rename channels, set topic/purpose, invite/kick members, mark-read (`conversations.*`) | `/slack-channel-admin ...` or natural language |

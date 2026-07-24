@@ -1,16 +1,17 @@
 ---
 name: slack-utils
-description: claude_ai Slack MCP 도구셋에 없는 단일 엔드포인트 유틸 두 개 — 메시지 퍼머링크 생성(chat.getPermalink)과 캔버스 삭제(canvases.delete)를 xoxp user 토큰으로 Slack Web API 직접 호출한다.
-argument-hint: "<메시지> 링크 만들어줘 | 캔버스 <canvas_id> 삭제해줘"
+description: claude_ai Slack MCP 도구셋에 없는 단일 엔드포인트 유틸들 — 메시지 퍼머링크 생성(chat.getPermalink), 캔버스 삭제(canvases.delete), 메시지 원본 JSON 조회(conversations.history, attachments/blocks 포함)를 xoxp user 토큰으로 Slack Web API 직접 호출한다.
+argument-hint: "<메시지> 링크 만들어줘 | 캔버스 <canvas_id> 삭제해줘 | <메시지> 원본(attachments/blocks) 읽어줘"
 allowed-tools: Bash, mcp__claude_ai_Slack__slack_search_public, mcp__claude_ai_Slack__slack_search_public_and_private, mcp__claude_ai_Slack__slack_read_channel, mcp__claude_ai_Slack__slack_read_thread
 ---
 
 # Slack Utils
 
-`mcp__claude_ai_Slack__*` 도구셋이 커버하지 못하는 단일 엔드포인트 유틸 두 개를 xoxp(user) 토큰으로 직접 호출한다.
+`mcp__claude_ai_Slack__*` 도구셋이 커버하지 못하는 단일 엔드포인트 유틸들을 xoxp(user) 토큰으로 직접 호출한다.
 
 - `permalink` — 특정 메시지의 공유 가능한 퍼머링크 생성 (`chat.getPermalink`). MCP 도구셋엔 퍼머링크 생성이 없다.
 - `delete-canvas` — 캔버스 삭제 (`canvases.delete`). MCP 도구셋은 캔버스 생성·읽기·수정은 되지만 삭제는 없다.
+- `read` — 메시지 원본 JSON 조회 (`conversations.history`). MCP 도구셋(`slack_read_thread`/`slack_read_channel`)은 `text` 필드만 주고 `attachments`/`blocks`(rich text, 카드형 attachment 등)는 안 줘서, 서식을 그대로 참고해야 할 때 이걸 쓴다.
 
 `permalink` 은 `channel_id`+`ts` → 퍼머링크의 방향이라, `slack-edit-message` 가 퍼머링크를 `channel_id`+`ts` 로 파싱하는 것의 정확히 역연산이다 — 그 스킬로 수정/삭제한 뒤 결과 메시지 링크를 다시 만들어 공유할 때 바로 이어 쓸 수 있다.
 
@@ -44,6 +45,18 @@ allowed-tools: Bash, mcp__claude_ai_Slack__slack_search_public, mcp__claude_ai_S
 ```
 
 응답 JSON 의 `ok` 필드를 확인한다. `false` 면 `error` 값을 그대로 보고한다 (자주 보는 값: `canvas_not_found`, `missing_scope`, `not_authed`).
+
+## read — 메시지 원본 JSON 조회
+
+읽기 전용이라 확인 없이 실행해도 된다.
+
+### 실행
+
+```bash
+"${CLAUDE_SKILL_DIR}/slack-utils.sh" read <channel_id> <ts>
+```
+
+`conversations.history`(`latest=<ts>&inclusive=true&limit=1`)로 해당 메시지 하나를 통째로 가져와 `messages[0]` 객체를 그대로 출력한다 — `text`, `attachments`, `blocks`, `bot_id` 등 원본 필드 전부 포함. Public 채널은 기존 토큰 스코프로 바로 됨을 확인함; private 채널/그룹은 `groups:history` 스코프가 없으면 `missing_scope`로 실패할 수 있음(미검증) — 그 경우 delete-canvas 때처럼 User Token Scopes에 추가 후 Reinstall 필요.
 
 ## 셋업
 

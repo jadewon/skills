@@ -1,5 +1,5 @@
 {
   "name": "slack-utils",
-  "description": "Slack single-endpoint utilities: generate a message permalink (chat.getPermalink) and delete a canvas (canvases.delete) via a user OAuth token",
-  "version": "1.0.0"
+  "description": "Slack single-endpoint utilities: generate a message permalink (chat.getPermalink), delete a canvas (canvases.delete), and read a message's raw JSON including attachments/blocks (conversations.history) via a user OAuth token",
+  "version": "1.1.0"
 }
