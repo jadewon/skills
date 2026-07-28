@@ -235,7 +235,7 @@
       "name": "html2md",
       "source": "./plugins/html2md",
       "description": "Convert a saved HTML article/page into clean Markdown — headings, paragraphs, lists, links, figures, and code, with site chrome (nav/forms/svg/avatars/subscribe widgets) stripped. Python stdlib only, no pandoc or pip install.",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "keywords": [
         "html",
         "markdown",

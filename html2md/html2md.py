@@ -27,7 +27,7 @@ BOILERPLATE = (
 )
 PREFIX = {
     "h1": "# ", "h2": "## ", "h3": "### ", "h4": "#### ",
-    "li": "- ", "blockquote": "> ", "p": "", "pre": "", "figcaption": "",
+    "li": "- ", "p": "", "pre": "", "figcaption": "",
 }
 # Images declaring a dimension below this are avatars/icons, not article figures.
 ICON_MAX_PX = 100
@@ -56,14 +56,24 @@ class ArticleParser(HTMLParser):
         self.figure_imgs = []
         self.doc_title = None
         self.in_title = False
+        self.title_idx = None
+        self.blockquote_depth = 0
 
     # --- helpers -------------------------------------------------
     def emit(self, text, raw=False):
         if not raw:
             # Medium glues trailing words together with nbsp -> normalize.
             text = re.sub(r"[ \t\xa0]+", " ", text).strip()
-        if text and not any(pat in text for pat in BOILERPLATE):
-            self.out.append(text)
+        if not text or any(pat in text for pat in BOILERPLATE):
+            return
+        # Every appended line goes through here -- headings, list items, images,
+        # figcaptions, code fences -- so this is the one place that needs to know
+        # about an open blockquote, instead of each block type re-deriving it.
+        if self.blockquote_depth:
+            marker = "> " * self.blockquote_depth
+            text = "\n".join(marker + ln if ln else marker.rstrip()
+                              for ln in text.split("\n"))
+        self.out.append(text)
 
     def flush(self):
         if self.block is None:
@@ -73,11 +83,21 @@ class ArticleParser(HTMLParser):
         if not text:
             return
         if block == "pre":
-            self.emit(f"```\n{text}\n```", raw=True)  # keep indentation intact
+            # Fence must be longer than any backtick run already in the code,
+            # or an embedded ``` would prematurely close the block.
+            longest_run = max((len(m) for m in re.findall(r"`+", text)), default=0)
+            fence = "`" * max(3, longest_run + 1)
+            self.emit(f"{fence}\n{text}\n{fence}", raw=True)  # keep indentation intact
         elif block == "figcaption":
             self.emit(f"*{text}*")  # caption renders italic, not as a block
         else:
+            before = len(self.out)
             self.emit(PREFIX.get(block, "") + text)
+            # A blockquoted h1 (e.g. a link-preview embed) isn't the article's
+            # own title -- its line is prefixed "> # ", not "# ".
+            if (block == "h1" and self.title_idx is None
+                    and not self.blockquote_depth and len(self.out) > before):
+                self.title_idx = before
 
     def add(self, text):
         if self.link_buf is not None:
@@ -123,6 +143,10 @@ class ArticleParser(HTMLParser):
                 self.add("`")
         elif tag == "title":
             self.in_title = True
+        elif tag == "blockquote":
+            self.flush()
+            self.block = tag
+            self.blockquote_depth += 1
         elif tag in BLOCKS:
             self.flush()
             self.block = tag
@@ -155,6 +179,9 @@ class ArticleParser(HTMLParser):
                 self.add("`")
         elif tag == "title":
             self.in_title = False
+        elif tag == "blockquote":
+            self.flush()
+            self.blockquote_depth = max(0, self.blockquote_depth - 1)
         elif tag in BLOCKS:
             self.flush()
 
@@ -168,7 +195,11 @@ class ArticleParser(HTMLParser):
 
 
 def convert(path):
-    raw = open(path, encoding="utf-8", errors="replace").read()
+    try:
+        with open(path, encoding="utf-8", errors="replace") as f:
+            raw = f.read()
+    except OSError as e:
+        sys.exit(f"html2md: cannot read {path}: {e.strerror}")
     topics = re.findall(r'aria-label="Topic: ([^"]+)"', raw)
 
     p = ArticleParser()
@@ -176,9 +207,8 @@ def convert(path):
     p.flush()
 
     lines = p.out
-    title_idx = next((i for i, l in enumerate(lines) if l.startswith("# ")), None)
-    if title_idx is not None:
-        title = lines[title_idx][2:]
+    if p.title_idx is not None:
+        title = lines[p.title_idx][2:]
     else:
         title = (p.doc_title or "").strip() or "Untitled"
 
@@ -188,13 +218,20 @@ def convert(path):
                     + ", ".join(html.unescape(t) for t in dict.fromkeys(topics)))
     # Drop only the one line picked as the title, not every "# "-prefixed line --
     # a second <h1> in the body is real content, not a duplicate title.
-    body = [l for i, l in enumerate(lines) if i != title_idx]
+    body = [l for i, l in enumerate(lines) if i != p.title_idx]
 
     # Blocks are blank-line separated, except adjacent list items (tight list).
+    # A blockquote-nested item carries a "> " prefix, so strip it before checking --
+    # but only join if both lines share the same blockquote context, or an item
+    # right after a blockquote (or vice versa) gets swallowed into the wrong list.
+    def is_item(line):
+        return (line[2:] if line.startswith("> ") else line).startswith("- ")
+
     doc = ""
     for line in head + body:
         if doc:
-            doc += "\n" if line.startswith("- ") and prev.startswith("- ") else "\n\n"
+            same_ctx = line.startswith("> ") == prev.startswith("> ")
+            doc += "\n" if same_ctx and is_item(line) and is_item(prev) else "\n\n"
         doc, prev = doc + line, line
     return doc + "\n"
 

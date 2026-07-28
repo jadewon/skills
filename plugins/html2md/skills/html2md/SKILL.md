@@ -35,6 +35,9 @@ Dropped: `svg`, `button`, `input`, `label`, `select`, `textarea`, `script`, `sty
 `nav`, `footer`, `form`; `data:` URIs; images under 100px (byline avatars, icons);
 Medium's "stories in your inbox" subscribe widget.
 
+Not escaped: a literal `_`, `` ` `` or `*` in the source text renders as-is in the
+output, which markdown viewers may interpret as emphasis or code.
+
 ## Extending
 
 Three lists at the top of `html2md.py` are the tuning surface — edit them rather than
