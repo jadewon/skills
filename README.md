@@ -50,6 +50,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [slack-reminders](./slack-reminders) | Create/list/complete/delete your Slack reminders (`reminders.*`) — cross-device, unlike the local `remind` skill | `/slack-reminders ...` or natural language |
 | [slack-usergroups](./slack-usergroups) | Create/update Slack user groups and replace membership (`usergroups.*`) — admin-flavored, may need extra scope | `/slack-usergroups ...` or natural language |
 | [add-service-shortcut](./add-service-shortcut) | Upsert the current project into the local shortcuts dashboard (`~/Workspaces/tport/shortcuts.html`) — infers name/desc/path from the working dir, upserts by name, supports note-only partial updates | `/add-service-shortcut [name]` or natural language |
+| [html2md](./html2md) | Convert a saved HTML article into clean Markdown — headings, lists, links, figures, code — with nav/forms/svg/avatars/subscribe widgets stripped. Python stdlib only, no pandoc | `/html2md article.html` or "이 html md로 뽑아줘" |
 
 ## Structure
 
@@ -111,9 +112,12 @@ skills/
 │   ├── slack-usergroups/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/slack-usergroups/
-│   └── healthsync-briefing/
+│   ├── healthsync-briefing/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/healthsync-briefing/
+│   └── html2md/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/healthsync-briefing/
+│       └── skills/html2md/
 ├── remind/                     # Legacy structure (symlink compatible)
 ├── slack-scheduled-message/
 ├── weather-daily/
@@ -132,6 +136,7 @@ skills/
 ├── slack-reminders/
 ├── slack-usergroups/
 ├── healthsync-briefing/
+├── html2md/
 └── add-service-shortcut/       # top-level only — personal, not published to the marketplace
 ```
 
