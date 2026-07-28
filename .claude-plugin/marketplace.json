@@ -23,8 +23,8 @@
     {
       "name": "slack-scheduled-message",
       "source": "./plugins/slack-scheduled-message",
-      "description": "Schedule a Slack message (configurable destination, default self-DM) with a `claude --resume` command for the current session, plus list/cancel scheduled messages",
-      "version": "1.1.0",
+      "description": "Schedule a Slack message (configurable destination, default self-DM) with a `claude --resume` command for the current session, plus list/cancel scheduled messages. Requires the local slack MCP server (jadewon/mcps slack-mcp).",
+      "version": "1.2.0",
       "keywords": [
         "slack",
         "scheduled",

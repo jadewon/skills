@@ -137,4 +137,4 @@ skills/
 
 주의: `plugins/` 하위는 symlink가 아니라 실제 복제본 — 스킬 수정 시 양쪽 다 고치고 `plugin.json` version도 올릴 것.
 
-시크릿: 이 레포는 public 이라, Slack 에 게시하는 스킬은 webhook / 봇 / user 토큰을 gitignore 된 `.env`(각 스킬의 `.env.example` 참고)에서 로드한다 — 실제 시크릿은 절대 커밋하지 않는다. Slack **user** 토큰(`xoxp-...`)이 필요한 `slack-*` 스킬들(웹훅으로 게시만 하는 `*-daily` 류 제외 전부)은 공유 위치 `~/.config/slack-user-token/.env` 를 먼저 찾으므로, 토큰은 한 번만 붙여넣고 스킬을 쓸 때마다 같은 Slack App 에 OAuth 스코프만 추가해나가면 된다.
+시크릿: 이 레포는 public 이라, Slack 에 게시하는 스킬은 webhook / 봇 / user 토큰을 gitignore 된 `.env`(각 스킬의 `.env.example` 참고)에서 로드한다 — 실제 시크릿은 절대 커밋하지 않는다. Slack **user** 토큰(`xoxp-...`)이 필요한 `slack-*` 스킬들(웹훅으로 게시만 하는 `*-daily` 류와 `slack-scheduled-message` 제외 전부)은 공유 위치 `~/.config/slack-user-token/.env` 를 먼저 찾으므로, 토큰은 한 번만 붙여넣고 스킬을 쓸 때마다 같은 Slack App 에 OAuth 스코프만 추가해나가면 된다. `slack-scheduled-message` 만 예외로, 자체 토큰 없이 로컬 [slack MCP 서버](https://github.com/jadewon/mcps/tree/main/slack-mcp)를 호출한다 (그 서버가 같은 공유 파일을 읽는다).

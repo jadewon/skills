@@ -52,9 +52,9 @@ Slack suppresses push, sound, and badge notifications on self-DMs regardless of 
 
 ## Cancel / list
 
-```bash
-slack-scheduled-message.sh list-scheduled <channel_id>
-slack-scheduled-message.sh cancel-scheduled <channel_id> <scheduled_message_id>
-```
+Both go through `mcp__slack__slack_api`:
 
-Needs `SLACK_USER_TOKEN` (see `.env.example`) — the schedule step itself uses the MCP tool and needs no token, but list/cancel call `chat.scheduledMessages.list` / `chat.deleteScheduledMessage` directly since those aren't in the MCP tool set. Messages still can't be *edited* via API — cancel and reschedule instead.
+- list — `method` `chat.scheduledMessages.list`, `params.channel` (omit for every channel)
+- cancel — `method` `chat.deleteScheduledMessage`, `params` `{channel, scheduled_message_id}`
+
+Messages still can't be *edited* via API — cancel and reschedule instead.

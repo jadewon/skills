@@ -52,9 +52,9 @@ Slack 은 본인 DM 에 대해 발신자와 무관하게 push/소리/배지 알�
 
 ## 취소 / 조회
 
-```bash
-slack-scheduled-message.sh list-scheduled <channel_id>
-slack-scheduled-message.sh cancel-scheduled <channel_id> <scheduled_message_id>
-```
+둘 다 `mcp__slack__slack_api` 로 처리한다.
 
-`SLACK_USER_TOKEN` 필요 (`.env.example` 참고) — 예약 자체는 MCP 도구를 쓰므로 토큰이 필요 없지만, list/cancel 은 MCP 도구셋에 없는 `chat.scheduledMessages.list`/`chat.deleteScheduledMessage` 를 직접 호출한다. API 로 *수정*은 여전히 불가 — 취소 후 재예약.
+- 조회 — `method` `chat.scheduledMessages.list`, `params.channel` (생략하면 전체)
+- 취소 — `method` `chat.deleteScheduledMessage`, `params` `{channel, scheduled_message_id}`
+
+API 로 *수정*은 여전히 불가 — 취소 후 재예약.
