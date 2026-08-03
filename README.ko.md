@@ -50,6 +50,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [slack-reminders](./slack-reminders) | Slack 자체 리마인더 생성/조회/완료/삭제 (`reminders.*`) — 로컬 `remind` 스킬과 달리 기기 간 동기화됨 | `/slack-reminders ...` 또는 자연어 |
 | [slack-usergroups](./slack-usergroups) | Slack 유저그룹 생성/수정 및 멤버십 교체 (`usergroups.*`) — admin 성격, 추가 스코프 필요할 수 있음 | `/slack-usergroups ...` 또는 자연어 |
 | [html2md](./html2md) | 저장한 HTML 아티클을 깔끔한 Markdown 으로 변환 — 제목·목록·링크·그림·코드 유지, nav/폼/svg/아바타/구독위젯 제거. Python 표준 라이브러리만 사용 (pandoc 불필요) | `/html2md article.html` 또는 "이 html md로 뽑아줘" |
+| [claude-code-memory-compaction](./claude-code-memory-compaction) | 200줄/25KB 상한에 닿은 auto memory 인덱스 정리 — 실제 로드되는 분량을 측정하고, 프로젝트 무관 지침을 `~/.claude/rules/` 로 승격(필요시 `paths` 스코프)해 한 프로젝트에 갇히지 않게 함. Python 표준 라이브러리만 사용 | `/claude-code-memory-compaction` 또는 메모리 인덱스 상한 경고를 봤을 때 |
 | [add-service-shortcut](./add-service-shortcut) | 현재 프로젝트를 로컬 바로가기 대시보드(`~/Workspaces/tport/shortcuts.html`)에 upsert — 작업 디렉토리에서 이름·설명·경로 추론, 이름 기준 upsert, 메모만 붙이는 부분 업데이트 지원 | `/add-service-shortcut [이름]` 또는 자연어 |
 
 ## Structure
@@ -115,9 +116,12 @@ skills/
 │   ├── healthsync-briefing/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/healthsync-briefing/
-│   └── html2md/
+│   ├── html2md/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/html2md/
+│   └── claude-code-memory-compaction/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/html2md/
+│       └── skills/claude-code-memory-compaction/
 ├── remind/                     # 기존 구조 (symlink 호환)
 ├── slack-scheduled-message/
 ├── weather-daily/
@@ -137,6 +141,7 @@ skills/
 ├── slack-usergroups/
 ├── healthsync-briefing/
 ├── html2md/
+├── claude-code-memory-compaction/
 └── add-service-shortcut/       # top-level 전용 — 개인용이라 marketplace 미배포
 ```
 

@@ -1,0 +1,5 @@
+{
+  "name": "claude-code-memory-compaction",
+  "description": "Compact a Claude Code auto-memory index that is at or near its 200-line / 25KB startup limit, promoting project-independent guidance into ~/.claude/rules/ so it stops being trapped in one project. Python stdlib only.",
+  "version": "1.0.0"
+}
