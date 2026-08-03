@@ -1,8 +1,8 @@
 # slack-scheduled-message
 
-Schedule a future-dated Slack message (default: self-DM, recommended: a private channel) that includes a `cd <pwd> && claude --resume <session>` command — so when the message lands, you can tap the snippet and drop straight back into the **current** Claude Code conversation.
+Schedule a future-dated Slack message to a channel that includes a `cd <pwd> && claude --resume <session>` command — so when the message lands, you can tap the snippet and drop straight back into the **current** Claude Code conversation.
 
-> ⚠️ **Read first:** Slack suppresses notifications on self-DMs. On first use, the skill asks where to send via `AskUserQuestion`. Pick a private channel if you want push to actually fire. See [Caveats](#caveats).
+> ⚠️ **Read first:** the message is sent **as the bot**, not as you. Slack never notifies you about your own message, so a self-sent reminder arrives silently. That makes the bot identity load-bearing — see [Caveats](#caveats).
 
 > [한국어](./README.ko.md)
 
@@ -26,13 +26,17 @@ Also natural language:
 
 ## What gets sent
 
-```
-<your message>
+````
+:alarm_clock: <your message>
 
-```bash
+```
 cd "<current path>" && claude --resume "<custom name ?? current session id>"
 ```
-```
+````
+
+Every scheduled message opens with `:alarm_clock:` so it is distinguishable at a glance from the
+other bot traffic in the channel. The code fence carries no language tag — Slack would render
+`bash` as a literal first line of the snippet and copy it along with the command.
 
 **Resume target resolution:** `user_custom_name ?? session_name ?? $CLAUDE_CODE_SESSION_ID`
 1. Explicit `as <name>` / `이름: <name>` from your input wins.
@@ -42,19 +46,29 @@ cd "<current path>" && claude --resume "<custom name ?? current session id>"
 ## Behavior
 
 - **Timezone:** Asia/Seoul (KST)
-- **Destination:** asked once on first use via `AskUserQuestion` — choose `내 DM` (default, no push) or `특정 채널/그룹` (recommended for notifications). Cached at `~/.config/slack-scheduled-message/channel_id`. To switch, `rm` the cache file.
+- **Sender:** the bot (`as: "bot"`), never you — see [Caveats](#caveats)
+- **Destination:** a channel, asked once on first use and cached at `~/.config/slack-scheduled-message/channel_id`. To switch, `rm` the cache file.
 - **Resume target:** `user_custom_name ?? session_name ?? $CLAUDE_CODE_SESSION_ID` (earlier wins)
 - **Bounds:** Slack scheduling requires ≥2 minutes future, ≤120 days out
 
 ## Caveats
 
-Slack suppresses push, sound, and badge notifications on self-DMs regardless of sender — sending via the Claude Slack app does not bypass this. Only the unread badge inside the DM channel itself appears. If you need a reliable push at the scheduled time, schedule into a single-member private channel instead (e.g. `#jade-notes`), or include a self-mention `<@U…>` in the message (re-enables notifications in some workspaces, but is workspace-dependent).
+**Slack never notifies you about a message you sent yourself** — no push, no sound, no badge, in any channel, self-DM or not. A reminder scheduled with the user token therefore arrives silently: it is in the channel, and you never find out. This is not a self-DM quirk and no client setting overrides it.
+
+So every send this skill makes is signed with the bot token (`as: "bot"` on `mcp__slack__slack_api`) — scheduling, listing and cancelling alike. The author is somebody else, so the notification fires normally. Two things follow:
+
+- The destination must be a **channel the bot belongs to**. Your own DM cannot work — the bot has no access to it, and a message you sent yourself would not notify you anyway. Use a single-member private channel instead (e.g. `#jade-notes`) and invite the bot.
+- The scheduled message **belongs to the bot**: it does not appear in your own `chat.scheduledMessages.list`, and only the bot token can cancel it.
 
 ## Cancel / list
 
-Both go through `mcp__slack__slack_api`:
+Both go through `mcp__slack__slack_api` **with `as: "bot"`** — without it the scheduled message is invisible and uncancellable:
 
-- list — `method` `chat.scheduledMessages.list`, `params.channel` (omit for every channel)
-- cancel — `method` `chat.deleteScheduledMessage`, `params` `{channel, scheduled_message_id}`
+- list — `method` `chat.scheduledMessages.list`, `as` `bot`, `params.channel` (omit for every channel)
+- cancel — `method` `chat.deleteScheduledMessage`, `as` `bot`, `params` `{channel, scheduled_message_id}`
 
 Messages still can't be *edited* via API — cancel and reschedule instead.
+
+## Setup
+
+`~/.config/slack-user-token/.env` needs both `SLACK_USER_TOKEN` (xoxp) and `SLACK_BOT_TOKEN` (xoxb with `chat:write`); the [slack-mcp](https://github.com/jadewon/mcps/tree/main/slack-mcp) server reads them. Invite that bot to the destination channel.
