@@ -84,16 +84,12 @@ curl -sfL --max-time 20 -o "$IMG" "$URL" && file "$IMG" && echo "IMG=$IMG URL=$U
 
    하나라도 못 통과하면 6번으로 돌아가 다시 쓴다. 재작성은 최대 2회다. 2회 후에도 못 통과하면 5번 관찰 목록의 첫 항목을 직접 가리키는 문장으로 코멘트를 쓰고 8번으로 넘어간다.
 
-8. 메시지를 조합한다. 평가 한마디를 먼저 쓰고, 빈 줄 후 사진 링크를 넣는다:
-```
-평가 한마디
+8. 메시지는 평가 한마디만이다. 사진 링크를 본문에 넣지 마라.
 
-<사진URL|오늘의 랜덤 냥사진>
-```
-
-9. Slack 채널에 전송한다 (봇 토큰/채널은 `.env`, 조합된 메시지는 인자로 전달):
+9. Slack 채널에 전송한다. 4번에서 내려받은 `$IMG` 파일을 두 번째 인자로 넘기면
+   `cat-post.sh` 가 사진을 첨부파일로 업로드한다 (봇 토큰/채널은 `.env`):
 ```bash
-"${CLAUDE_SKILL_DIR}/cat-post.sh" "조합된 메시지"
+"${CLAUDE_SKILL_DIR}/cat-post.sh" "평가 한마디" "$IMG"
 ```
 출력이 `ok` 면 성공. 그 외면 stderr 의 에러를 보고하고 종료.
 
@@ -117,6 +113,7 @@ curl -sfL --max-time 20 -o "$IMG" "$URL" && file "$IMG" && echo "IMG=$IMG URL=$U
 2. `SLACK_BOT_TOKEN`(xoxb-...), `SLACK_CHANNEL`(채널 ID) 채움
 3. `chmod +x cat-post.sh cat-recent.sh`
 
-봇 토큰에는 `chat:write` 와 `channels:history` 가 모두 필요하다 — 발송과 최근 글 조회에 각각 쓴다.
+봇 토큰에는 `chat:write`, `files:write`, `channels:history` 가 모두 필요하다 — 발송, 사진 업로드,
+최근 글 조회에 각각 쓴다.
 
 `.env` 는 gitignore — 봇 토큰은 서버/로컬에만 두고 레포(PUBLIC)에 커밋하지 않는다. cat-fact-daily 와 `~/.config/cat-daily/.env` 를 공유한다.

@@ -40,9 +40,11 @@ d = json.load(sys.stdin)
 if not d.get("ok"):
     print("ERROR: Slack rejected: %s" % d.get("error"), file=sys.stderr)
     sys.exit(3)
+# 냥사진 글 판별: 현재는 사진을 파일로 올리므로 files 가 있다. 2026-09-22 이전 글은 본문에
+# thecatapi.com URL 이 들어 있다. 같은 채널의 cat-fact-daily 글은 둘 다 없다.
 lines = [m["text"].split("\n")[0].strip()
          for m in d.get("messages", [])
-         if "thecatapi.com" in m.get("text", "")]
+         if m.get("files") or "thecatapi.com" in m.get("text", "")]
 for line in lines[:int(os.environ["COUNT"])]:
     print(line)
 '
