@@ -40,9 +40,10 @@ d = json.load(sys.stdin)
 if not d.get("ok"):
     print("ERROR: Slack rejected: %s" % d.get("error"), file=sys.stderr)
     sys.exit(3)
+# 냥사진 글 판별: URL 은 image block(현재) 또는 text(2026-09-22 이전 글) 에 있다.
 lines = [m["text"].split("\n")[0].strip()
          for m in d.get("messages", [])
-         if "thecatapi.com" in m.get("text", "")]
+         if "thecatapi.com" in json.dumps(m)]
 for line in lines[:int(os.environ["COUNT"])]:
     print(line)
 '
