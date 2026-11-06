@@ -245,6 +245,19 @@
       ]
     },
     {
+      "name": "markitdown",
+      "source": "./plugins/markitdown",
+      "description": "Convert .docx/.pptx/.xlsx/.epub/.msg/.zip, audio, and YouTube URLs to Markdown with the Microsoft MarkItDown CLI — offline, no MCP server.",
+      "version": "1.0.0",
+      "keywords": [
+        "markdown",
+        "converter",
+        "docx",
+        "pptx",
+        "xlsx"
+      ]
+    },
+    {
       "name": "claude-code-memory-compaction",
       "source": "./plugins/claude-code-memory-compaction",
       "description": "Compact a Claude Code auto-memory index that is at or near its 200-line / 25KB startup limit, promoting project-independent guidance into ~/.claude/rules/, merging entries into group files without leaving the sources behind, flagging shadow copies and dangling pointers, and checking startup instruction files against the 150,000-char budget. Python stdlib only.",

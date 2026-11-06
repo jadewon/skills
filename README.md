@@ -50,6 +50,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [slack-reminders](./slack-reminders) | Create/list/complete/delete your Slack reminders (`reminders.*`) — cross-device, unlike the local `remind` skill | `/slack-reminders ...` or natural language |
 | [slack-usergroups](./slack-usergroups) | Create/update Slack user groups and replace membership (`usergroups.*`) — admin-flavored, may need extra scope | `/slack-usergroups ...` or natural language |
 | [html2md](./html2md) | Convert a saved HTML article into clean Markdown — headings, lists, links, figures, code — with nav/forms/svg/avatars/subscribe widgets stripped. Python stdlib only, no pandoc | `/html2md article.html` or "이 html md로 뽑아줘" |
+| [markitdown](./markitdown) | Convert .docx/.pptx/.xlsx/.epub/.msg/.zip, audio, and YouTube URLs to Markdown with the Microsoft MarkItDown CLI — offline, no MCP server. PDFs/images go to Read, saved HTML articles to html2md | `/markitdown report.docx` or "이 엑셀 내용 봐줘" |
 | [claude-code-memory-compaction](./claude-code-memory-compaction) | Compact an auto-memory index sitting at its 200-line / 25KB startup limit — measures what actually loads, then promotes project-independent guidance into `~/.claude/rules/` (optionally `paths`-scoped) instead of trimming words; flags shadow copies and dangling pointers, and checks startup instruction files against the 150,000-char budget. Python stdlib only | `/claude-code-memory-compaction` or when Claude Code warns the memory index is near/over its read limit |
 | [add-service-shortcut](./add-service-shortcut) | Upsert the current project into the local shortcuts dashboard (`~/Workspaces/tport/shortcuts.html`) — infers name/desc/path from the working dir, upserts by name, supports note-only partial updates | `/add-service-shortcut [name]` or natural language |
 
@@ -119,6 +120,9 @@ skills/
 │   ├── html2md/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/html2md/
+│   ├── markitdown/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/markitdown/
 │   └── claude-code-memory-compaction/
 │       ├── .claude-plugin/plugin.json
 │       └── skills/claude-code-memory-compaction/
@@ -141,6 +145,7 @@ skills/
 ├── slack-usergroups/
 ├── healthsync-briefing/
 ├── html2md/
+├── markitdown/
 ├── claude-code-memory-compaction/
 └── add-service-shortcut/       # top-level only — personal, not published to the marketplace
 ```

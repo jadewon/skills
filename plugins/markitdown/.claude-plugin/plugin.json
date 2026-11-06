@@ -1,0 +1,5 @@
+{
+  "name": "markitdown",
+  "description": "Convert .docx/.pptx/.xlsx/.epub/.msg/.zip, audio, and YouTube URLs to Markdown with the Microsoft MarkItDown CLI — offline, no MCP server.",
+  "version": "1.0.0"
+}
