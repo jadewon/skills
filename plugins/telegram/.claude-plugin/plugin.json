@@ -1,0 +1,5 @@
+{
+  "name": "telegram",
+  "description": "Send text/files, edit, react, and pull new messages through a Telegram bot — one curl per Bot API call, no MCP server, poller, or daemon. Allowlisted chats only; inbox text is treated as untrusted.",
+  "version": "1.0.0"
+}

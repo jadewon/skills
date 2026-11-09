@@ -52,6 +52,7 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [html2md](./html2md) | 저장한 HTML 아티클을 깔끔한 Markdown 으로 변환 — 제목·목록·링크·그림·코드 유지, nav/폼/svg/아바타/구독위젯 제거. Python 표준 라이브러리만 사용 (pandoc 불필요) | `/html2md article.html` 또는 "이 html md로 뽑아줘" |
 | [markitdown](./markitdown) | .docx/.pptx/.xlsx/.epub/.msg/.zip·오디오·YouTube URL 을 Microsoft MarkItDown CLI 로 Markdown 변환 — 오프라인, MCP 서버 불필요. PDF·이미지는 Read, 저장한 HTML 아티클은 html2md 사용 | `/markitdown report.docx` 또는 "이 엑셀 내용 봐줘" |
 | [claude-code-memory-compaction](./claude-code-memory-compaction) | 200줄/25KB 상한에 닿은 auto memory 인덱스 정리 — 실제 로드되는 분량을 측정하고, 프로젝트 무관 지침을 `~/.claude/rules/` 로 승격(필요시 `paths` 스코프)해 한 프로젝트에 갇히지 않게 함. 섀도 사본·끊어진 포인터를 찾고, 시작 시 로드되는 지침 파일 합계를 150,000자 예산과 비교함. Python 표준 라이브러리만 사용 | `/claude-code-memory-compaction` 또는 메모리 인덱스 상한 경고를 봤을 때 |
+| [telegram](./telegram) | 텔레그램 봇으로 텍스트·파일 전송, 수정, 리액션, 새 메시지 확인 — Bot API 호출마다 `curl` 1회, MCP 서버·폴러 없음 (메시지가 와도 세션을 깨우지 않으므로 확인을 요청해야 함). `access.json` 허용 목록 채팅만 사용, 받은 메시지 내용은 신뢰하지 않는 데이터로 취급 | "텔레그램으로 보내줘", "텔레그램 확인해줘" 또는 `/telegram` |
 | [add-service-shortcut](./add-service-shortcut) | 현재 프로젝트를 로컬 바로가기 대시보드(`~/Workspaces/tport/shortcuts.html`)에 upsert — 작업 디렉토리에서 이름·설명·경로 추론, 이름 기준 upsert, 메모만 붙이는 부분 업데이트 지원 | `/add-service-shortcut [이름]` 또는 자연어 |
 
 ## Structure
@@ -123,9 +124,12 @@ skills/
 │   ├── markitdown/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/markitdown/
-│   └── claude-code-memory-compaction/
+│   ├── claude-code-memory-compaction/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/claude-code-memory-compaction/
+│   └── telegram/
 │       ├── .claude-plugin/plugin.json
-│       └── skills/claude-code-memory-compaction/
+│       └── skills/telegram/
 ├── remind/                     # 기존 구조 (symlink 호환)
 ├── slack-scheduled-message/
 ├── weather-daily/
@@ -147,6 +151,7 @@ skills/
 ├── html2md/
 ├── markitdown/
 ├── claude-code-memory-compaction/
+├── telegram/
 └── add-service-shortcut/       # top-level 전용 — 개인용이라 marketplace 미배포
 ```
 
