@@ -1,0 +1,5 @@
+{
+  "name": "dog-fact-daily",
+  "description": "Daily dog fact posted to Slack in the 'Bori' dog persona (Korean)",
+  "version": "1.0.0"
+}

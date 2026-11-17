@@ -86,6 +86,32 @@
       ]
     },
     {
+      "name": "dog-fact-daily",
+      "source": "./plugins/dog-fact-daily",
+      "description": "Daily dog fact posted to Slack in the 'Bori' dog persona (Korean)",
+      "version": "1.0.0",
+      "keywords": [
+        "dog",
+        "fact",
+        "slack",
+        "daily",
+        "fun"
+      ]
+    },
+    {
+      "name": "dog-photo-daily",
+      "source": "./plugins/dog-photo-daily",
+      "description": "Daily random dog photo with a 'Bori' dog-persona one-liner, posted to Slack",
+      "version": "1.0.0",
+      "keywords": [
+        "dog",
+        "photo",
+        "slack",
+        "daily",
+        "fun"
+      ]
+    },
+    {
       "name": "slack-edit-message",
       "source": "./plugins/slack-edit-message",
       "description": "Edit (chat.update) or delete (chat.delete) your own Slack messages via a user OAuth token",
