@@ -1,0 +1,5 @@
+{
+  "name": "dog-video-daily",
+  "description": "Daily most-liked dog video from Mastodon hashtags, with a Korean title by Haiku, uploaded to Slack (runs as a plain cron script)",
+  "version": "1.0.0"
+}

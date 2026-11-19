@@ -39,6 +39,8 @@ ln -s /path/to/this-repo/plugins/remind/skills/remind ~/.claude/skills/remind
 | [cat-photo-daily](./cat-photo-daily) | Daily random cat photo with a "Momo" cat-persona one-liner, posted to Slack | `/cat-photo-daily` (weekday afternoon cron) |
 | [dog-fact-daily](./dog-fact-daily) | Daily dog fact in the "Bori" dog persona (Korean), posted to Slack | `/dog-fact-daily` (weekday morning cron) |
 | [dog-photo-daily](./dog-photo-daily) | Daily random dog photo with a "Bori" dog-persona one-liner, posted to Slack | `/dog-photo-daily` (weekday afternoon cron) |
+| [cat-video-daily](./cat-video-daily) | Daily most-liked cat video from Mastodon hashtags, with a Korean title by Haiku, uploaded to Slack | `cat-video-daily.sh` (weekday afternoon cron) |
+| [dog-video-daily](./dog-video-daily) | Daily most-liked dog video from Mastodon hashtags, with a Korean title by Haiku, uploaded to Slack | `dog-video-daily.sh` (weekday afternoon cron) |
 | [healthsync-briefing](./healthsync-briefing) | AI health briefing from HealthSync's daily snapshots in the private `jadewon/health` repo — recovery/sleep/activity interpretation + 1–3 actionable suggestions (Bevel-Intelligence-class, no stats dump) | `/healthsync-briefing` or "건강 브리핑", "요즘 몸 어때" |
 | [slack-edit-message](./slack-edit-message) | Edit or delete your own Slack messages (`chat.update`/`chat.delete`) — not exposed by the claude_ai Slack MCP tools, so this calls the Web API directly with a user OAuth token | `/slack-edit-message <message link> ...` or natural language |
 | [slack-reactions](./slack-reactions) | Remove a reaction or list reactions you left (`reactions.remove`/`reactions.list`) | `/slack-reactions remove ...` or natural language |
@@ -90,6 +92,12 @@ skills/
 │   ├── dog-photo-daily/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/dog-photo-daily/
+│   ├── cat-video-daily/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/cat-video-daily/
+│   ├── dog-video-daily/
+│   │   ├── .claude-plugin/plugin.json
+│   │   └── skills/dog-video-daily/
 │   ├── slack-edit-message/
 │   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/slack-edit-message/
@@ -146,6 +154,8 @@ skills/
 ├── cat-photo-daily/
 ├── dog-fact-daily/
 ├── dog-photo-daily/
+├── cat-video-daily/
+├── dog-video-daily/
 ├── slack-edit-message/
 ├── slack-reactions/
 ├── slack-pins/

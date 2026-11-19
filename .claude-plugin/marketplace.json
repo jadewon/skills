@@ -112,6 +112,32 @@
       ]
     },
     {
+      "name": "cat-video-daily",
+      "source": "./plugins/cat-video-daily",
+      "description": "Daily most-liked cat video from Mastodon hashtags, with a Korean title by Haiku, uploaded to Slack (runs as a plain cron script)",
+      "version": "1.0.0",
+      "keywords": [
+        "cat",
+        "video",
+        "slack",
+        "daily",
+        "mastodon"
+      ]
+    },
+    {
+      "name": "dog-video-daily",
+      "source": "./plugins/dog-video-daily",
+      "description": "Daily most-liked dog video from Mastodon hashtags, with a Korean title by Haiku, uploaded to Slack (runs as a plain cron script)",
+      "version": "1.0.0",
+      "keywords": [
+        "dog",
+        "video",
+        "slack",
+        "daily",
+        "mastodon"
+      ]
+    },
+    {
       "name": "slack-edit-message",
       "source": "./plugins/slack-edit-message",
       "description": "Edit (chat.update) or delete (chat.delete) your own Slack messages via a user OAuth token",
